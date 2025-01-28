@@ -2,8 +2,10 @@ package grpcsvc
 
 import (
 	"context"
+	"time"
 
 	authv1 "github.com/purplepudding/foundation/api/pkg/pb/foundation/v1/auth"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 var _ authv1.AuthServiceServer = (*AuthService)(nil)
@@ -13,6 +15,9 @@ type AuthService struct {
 }
 
 func (a *AuthService) Login(ctx context.Context, req *authv1.LoginRequest) (*authv1.LoginResponse, error) {
-	//TODO implement me
-	panic("implement me")
+	return &authv1.LoginResponse{
+		AccessToken:  "eyy.nice.token",
+		RefreshToken: "eyy.refreshing.token",
+		Expiry:       timestamppb.New(time.Now().Add(time.Hour)),
+	}, nil
 }
