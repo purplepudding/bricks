@@ -1,0 +1,87 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+      attestations: write
+      id-token: write
+    outputs:
+      version: ${{steps.semver.outputs.next}}
+    matrix:
+      - auth
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Go  
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.23.x"
+
+      - name: Setup ko
+        uses: ko-build/setup-ko@v0.6
+
+      - name: Get Next Version
+        id: semver
+        uses: ietf-tools/semver-action@v1
+        with:
+          token: ${{ github.token }}
+          branch: main
+          patchAll: 'true '
+          noVersionBumpBehavior: 'patch'
+
+      - name: Create Release
+        uses: ncipollo/release-action@v1.12.0
+        with:
+          allowUpdates: true
+          draft: false
+          makeLatest: true
+          name: ${{ steps.semver.outputs.next }}
+          token: ${{ github.token }}
+          commit: ${{ github.sha }}
+          tag : ${{ steps.semver.outputs.next }}
+
+      - name: Build container
+        run:
+          GOFLAGS="-ldflags=-X=github.com/purplepudding/foundation.Version=${{steps.semver.outputs.next}}" ko build ./${{matrix.svc}}/cmd/${{matrix.svc}} --tags ${{steps.semver.outputs.next}} --tags latest --bare --platform=linux/amd64,linux/arm64
+
+#      - name: Update kustomization
+#        uses: fjogeleit/yaml-update-action@main
+#        with:
+#          valueFile: 'deploy/k8s/prod/kustomization.yaml'
+#          propertyPath: 'images[0].newTag'
+#          value: "${{steps.semver.outputs.next}}"
+#          commitChange: true
+#          message: "deploy: Booking ${{steps.semver.outputs.next}} [no ci]"
+#          branch: main
+#
+#      - name: Update azure config
+#        uses: fjogeleit/yaml-update-action@main
+#        with:
+#          valueFile: 'deploy/azure/prod/configuration.yaml'
+#          propertyPath: 'properties.template.containers[0].image'
+#          value: "ghcr.io/girlguidingstaplehurst/booking:${{steps.semver.outputs.next}}"
+#          commitChange: true
+#          message: "deploy: Booking ${{steps.semver.outputs.next}} to azure [no ci]"
+#          branch: main
+#
+#      - name: Log in to Azure
+#        uses: azure/login@v1
+#        with:
+#          creds: ${{ secrets.AZURE_CREDENTIALS }}
+#
+#      - name: Build and deploy Container App
+#        uses: azure/container-apps-deploy-action@v1
+#        with:
+#          containerAppEnvironment: managedEnvironment-KLC-965e
+#          containerAppName: booking
+#          resourceGroup: KLC
+#          yamlConfigPath: deploy/azure/prod/configuration.yaml

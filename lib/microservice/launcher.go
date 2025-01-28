@@ -7,20 +7,20 @@ import (
 )
 
 // TODO handle exit signals
-func Launch(name string, defaultCfg []byte, cfg any, svc Service) {
+func Launch(name, version string, defaultCfg []byte, cfg any, svc Service) {
 	if err := config.Load(defaultCfg, cfg); err != nil {
 		slog.Error("failed to load config", "error", err)
 		panic("config loading failed")
 	}
 
-	slog.Info("booting service", "name", name) //TODO add version number
+	slog.Info("booting service", "name", name, "version", version)
 
 	if err := svc.Wire(); err != nil {
 		slog.Error("failed to wire the service", "error", err) //TODO replace with unified tracing/logging
 		panic("startup failed")
 	}
 
-	slog.Info("running service", "name", name)
+	slog.Info("running service", "name", name, "version", version)
 
 	if err := svc.Run(); err != nil {
 		slog.Error("error while running the service", "error", err)
