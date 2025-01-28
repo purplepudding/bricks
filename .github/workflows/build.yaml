@@ -37,8 +37,9 @@ jobs:
         with:
           token: ${{ github.token }}
           branch: main
-          patchAll: 'true '
+          patchAll: 'true'
           noVersionBumpBehavior: 'patch'
+          fallbackTag: 'v0.1.0'
 
       - name: Create Release
         uses: ncipollo/release-action@v1.12.0
