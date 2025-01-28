@@ -5,6 +5,7 @@ go 1.23.3
 require (
 	buf.build/gen/go/purplepudding/foundation/grpc/go v1.5.1-20250127214339-7e68527581b1.2
 	github.com/bufbuild/buf v1.50.0
+	github.com/magefile/mage v1.14.0
 	google.golang.org/grpc v1.70.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.5.1
 	google.golang.org/protobuf v1.36.4
