@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/purplepudding/foundation/internal/service"
+	"github.com/purplepudding/foundation/auth/internal/service"
 )
 
 func main() {

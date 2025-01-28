@@ -1,6 +1,6 @@
 syntax = "proto3";
-
-package foundation.v1;
+package foundation.v1.auth;
+option go_package = "foundation/v1/auth";
 
 import "google/protobuf/timestamp.proto";
 

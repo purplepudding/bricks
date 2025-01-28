@@ -4,7 +4,7 @@ import (
 	"net"
 
 	"buf.build/gen/go/purplepudding/foundation/grpc/go/foundation/v1/foundationv1grpc"
-	"github.com/purplepudding/foundation/internal/grpcsvc"
+	"github.com/purplepudding/foundation/auth/internal/grpcsvc"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/reflection"
 )
