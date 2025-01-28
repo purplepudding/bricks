@@ -7,5 +7,5 @@ import (
 )
 
 func main() {
-	microservice.Launch("auth", new(config.Config), new(service.Service))
+	microservice.Launch("auth", config.DefaultCfg, new(config.Config), new(service.Service))
 }

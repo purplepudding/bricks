@@ -4,17 +4,22 @@ import (
 	"strings"
 
 	"github.com/knadh/koanf"
+	"github.com/knadh/koanf/parsers/yaml"
 	"github.com/knadh/koanf/providers/env"
+	"github.com/knadh/koanf/providers/rawbytes"
 )
 
 const (
 	EnvPrefix = "FOUNDATION_"
 )
 
-func Load(cfg any) error {
+func Load(embeddedCfg []byte, cfg any) error {
 	k := koanf.New(".")
 
-	//TODO Load from embedded YAML string (defaults)
+	// Load from embedded YAML string (defaults)
+	if err := k.Load(rawbytes.Provider(embeddedCfg), yaml.Parser()); err != nil {
+		return err
+	}
 
 	//TODO Load from YAML at path (general overrides)
 
