@@ -2,9 +2,9 @@ package main
 
 import (
 	"github.com/purplepudding/foundation/auth/internal/service"
+	"github.com/purplepudding/foundation/lib/microservice"
 )
 
 func main() {
-	s := service.NewService()
-	s.Run()
+	microservice.Launch("auth", new(service.Service))
 }

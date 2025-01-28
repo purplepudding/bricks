@@ -3,39 +3,36 @@ package service
 import (
 	"net"
 
-	"buf.build/gen/go/purplepudding/foundation/grpc/go/foundation/v1/foundationv1grpc"
+	authv1 "github.com/purplepudding/foundation/api/pkg/pb/foundation/v1/auth"
 	"github.com/purplepudding/foundation/auth/internal/grpcsvc"
+	"github.com/purplepudding/foundation/lib/microservice"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/reflection"
 )
+
+var _ microservice.Service = (*Service)(nil)
 
 type Service struct {
 	server *grpc.Server
 }
 
-func NewService() *Service {
-	//TODO load config from file
-	var opts []grpc.ServerOption
+func (service *Service) Wire() error {
+	service.server = microservice.GRPCServer(func(g *grpc.Server) {
+		authv1.RegisterAuthServiceServer(g, &grpcsvc.AuthService{})
+	})
 
-	grpcServer := grpc.NewServer(opts...)
-	reflection.Register(grpcServer)
-	foundationv1grpc.RegisterAuthServiceServer(grpcServer, &grpcsvc.AuthService{})
-
-	return &Service{
-		server: grpcServer,
-	}
+	return nil
 }
 
-func (service *Service) Run() {
+func (service *Service) Run() error {
 	//TODO get address from config
-
 	lis, err := net.Listen("tcp", ":8080")
 	if err != nil {
-		panic(err)
+		return err
 	}
 
 	if err := service.server.Serve(lis); err != nil {
-		panic(err)
+		return err
 	}
-	//TODO handle exit signals
+
+	return nil
 }
