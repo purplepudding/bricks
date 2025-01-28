@@ -15,8 +15,10 @@ jobs:
       id-token: write
     outputs:
       version: ${{steps.semver.outputs.next}}
-    matrix:
-      - auth
+    strategy:
+      matrix:
+        svc:
+          - auth
 
     steps:
       - uses: actions/checkout@v4
