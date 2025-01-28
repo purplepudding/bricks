@@ -6,30 +6,13 @@ on:
       - main
 
 jobs:
-  build:
+  version:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      packages: write
-      attestations: write
-      id-token: write
     outputs:
       version: ${{steps.semver.outputs.next}}
-    strategy:
-      matrix:
-        svc:
-          - auth
 
     steps:
       - uses: actions/checkout@v4
-
-      - name: Setup Go  
-        uses: actions/setup-go@v5
-        with:
-          go-version: "1.23.x"
-
-      - name: Setup ko
-        uses: ko-build/setup-ko@v0.6
 
       - name: Get Next Version
         id: semver
@@ -50,11 +33,35 @@ jobs:
           name: ${{ steps.semver.outputs.next }}
           token: ${{ github.token }}
           commit: ${{ github.sha }}
-          tag : ${{ steps.semver.outputs.next }}
+          tag: ${{ steps.semver.outputs.next }}
+
+  build-container:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+      attestations: write
+      id-token: write
+
+    strategy:
+      matrix:
+        svc:
+          - auth
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Go  
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.23.x"
+
+      - name: Setup ko
+        uses: ko-build/setup-ko@v0.6
 
       - name: Build container
         run:
-          GOFLAGS="-ldflags=-X=github.com/purplepudding/foundation.Version=${{steps.semver.outputs.next}}" ko build ./${{matrix.svc}}/cmd/${{matrix.svc}} --tags ${{steps.semver.outputs.next}} --tags latest --bare --platform=linux/amd64,linux/arm64
+          GOFLAGS="-ldflags=-X=github.com/purplepudding/foundation.Version=${{jobs.version.outputs.version}}" ko build ./${{matrix.svc}}/cmd/${{matrix.svc}} --tags ${{jobs.version.outputs.version}} --tags latest --bare --platform=linux/amd64,linux/arm64
 
 #      - name: Update kustomization
 #        uses: fjogeleit/yaml-update-action@main
