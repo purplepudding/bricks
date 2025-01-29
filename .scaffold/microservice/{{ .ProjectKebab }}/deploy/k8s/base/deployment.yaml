@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .ProjectKebab }}
+  namespace: foundation
+  labels:
+    app: {{ .ProjectKebab }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .ProjectKebab }}
+  template:
+    metadata:
+      name: {{ .ProjectKebab }}
+      labels:
+        app: {{ .ProjectKebab }}
+    spec:
+      containers:
+        - name: {{ .ProjectKebab }}
+          image: ghcr.io/purplepudding/foundation/{{.ProjectKebab}}:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+              protocol: TCP
+      restartPolicy: Always

@@ -27,3 +27,9 @@ func Dev(svc string) error {
 
 	return sh.RunV("skaffold", "dev", "--port-forward")
 }
+
+func New(template string) error {
+	mg.Deps() //TODO go install scaffold
+
+	return sh.RunV("scaffold", "new", template)
+}

@@ -1,0 +1,15 @@
+# yaml-language-server: $schema=https://hay-kot.github.io/scaffold/schema.json
+messages:
+  pre: |
+    # Microservice scaffold
+
+    This scaffold creates a new microservice from the template.
+
+  post: |
+    # {{ .ProjectKebab }} microservice created
+    
+    Run `mage dev {{ .ProjectKebab }}` to launch the newly created microservice.
+    
+    Don't forget to add the new microservice to the GH Actions workflow.
+
+questions: []
