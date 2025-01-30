@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/purplepudding/foundation/api/pkg/pb/foundation/v1/{{.ProjectKebab}}"
+	"github.com/purplepudding/foundation/api/pkg/pb/foundation/v1/settings"
 	"github.com/purplepudding/foundation/lib/test"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -18,14 +18,14 @@ import (
 func TestIntegration_Do(t *testing.T) {
 	tests := []struct {
 		name string
-		req  *{{.ProjectKebab}}.Request
-		resp *{{.ProjectKebab}}.Response
+		req  *settings.Request
+		resp *settings.Response
 		code codes.Code
 	}{
 		{
 			name: "do the thing",
-			req: &{{.ProjectKebab}}.Request{},
-			resp: &{{.ProjectKebab}}.Response{},
+			req: &settings.Request{},
+			resp: &settings.Response{},
 		},
 	}
 
@@ -37,7 +37,7 @@ func TestIntegration_Do(t *testing.T) {
 				_ = cc.Close()
 			}()
 
-			cli := {{.ProjectKebab}}.NewAAAServiceClient(cc)
+			cli := settings.NewAAAServiceClient(cc)
 
 			ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 			defer cancel()

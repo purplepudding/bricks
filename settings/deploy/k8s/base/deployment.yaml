@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: settings
+  namespace: foundation
+  labels:
+    app: settings
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: settings
+  template:
+    metadata:
+      name: settings
+      labels:
+        app: settings
+    spec:
+      containers:
+        - name: settings
+          image: ghcr.io/purplepudding/foundation/settings:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+              protocol: TCP
+      restartPolicy: Always

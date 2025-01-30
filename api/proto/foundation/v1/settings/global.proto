@@ -1,0 +1,17 @@
+syntax = "proto3";
+package foundation.v1.settings;
+option go_package = "foundation/v1/settings";
+
+import "foundation/v1/settings/common.proto";
+
+message SetGlobalSettingsRequest {
+  repeated Settings settings = 1;
+}
+
+message SetGlobalSettingsResponse {
+  repeated string updated_keys = 1;
+}
+
+service GlobalSettingsService {
+  rpc SetGlobalSettings(SetGlobalSettingsRequest) returns (SetGlobalSettingsResponse) {}
+}

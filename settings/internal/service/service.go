@@ -3,9 +3,9 @@ package service
 import (
 	"net"
 
-	{{.ProjectKebab}}v1 "github.com/purplepudding/foundation/api/pkg/pb/foundation/v1/{{.ProjectKebab}}"
-	"github.com/purplepudding/foundation/{{.ProjectKebab}}/internal/grpcsvc"
+	settingsv1 "github.com/purplepudding/foundation/api/pkg/pb/foundation/v1/settings"
 	"github.com/purplepudding/foundation/lib/microservice"
+	"github.com/purplepudding/foundation/settings/internal/grpcsvc"
 	"google.golang.org/grpc"
 )
 
@@ -17,7 +17,7 @@ type Service struct {
 
 func (service *Service) Wire() error {
 	service.server = microservice.GRPCServer(func(g *grpc.Server) {
-		{{.ProjectKebab}}v1.RegisterAAAServiceServer(g, &grpcsvc.AAAService{})
+		settingsv1.RegisterGlobalSettingsServiceServer(g, &grpcsvc.GlobalSettingsService{})
 	})
 
 	return nil
