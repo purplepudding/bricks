@@ -22,10 +22,10 @@ func Test() error {
 	return sh.RunV("go", "test", "./...", "-skip", "Integration")
 }
 
-func IntegrationTest() error {
+func IntegrationTest(svc string) error {
 	mg.Deps()
 
-	return sh.RunV("go", "test", "./...", "-run", "Integration")
+	return sh.RunV("go", "test", "./"+svc+"/...", "-run", "Integration")
 }
 
 func Dev(svc string) error {
