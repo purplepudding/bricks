@@ -15,17 +15,17 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func TestIntegration_Do(t *testing.T) {
+func TestIntegration_GlobalSettings(t *testing.T) {
 	tests := []struct {
 		name string
-		req  *settings.Request
-		resp *settings.Response
+		req  *settings.SetGlobalSettingsRequest
+		resp *settings.SetGlobalSettingsResponse
 		code codes.Code
 	}{
 		{
 			name: "do the thing",
-			req: &settings.Request{},
-			resp: &settings.Response{},
+			req:  &settings.SetGlobalSettingsRequest{},
+			resp: &settings.SetGlobalSettingsResponse{},
 		},
 	}
 
@@ -37,12 +37,12 @@ func TestIntegration_Do(t *testing.T) {
 				_ = cc.Close()
 			}()
 
-			cli := settings.NewAAAServiceClient(cc)
+			cli := settings.NewGlobalSettingsServiceClient(cc)
 
 			ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 			defer cancel()
 
-			resp, err := cli.Do(ctx, tt.req)
+			resp, err := cli.SetGlobalSettings(ctx, tt.req)
 			if tt.code != codes.OK {
 				assert.Nil(t, resp)
 				assert.Error(t, err)

@@ -16,6 +16,18 @@ func Gen() error {
 	return sh.RunV("go", "generate", "./...")
 }
 
+func Test() error {
+	mg.Deps()
+
+	return sh.RunV("go", "test", "./...", "-skip", "Integration")
+}
+
+func IntegrationTest() error {
+	mg.Deps()
+
+	return sh.RunV("go", "test", "./...", "-run", "Integration")
+}
+
 func Dev(svc string) error {
 	//TODO validate path?
 	if err := os.Chdir(svc); err != nil {
