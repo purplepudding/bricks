@@ -8,4 +8,9 @@ import (
 var DefaultCfg []byte
 
 type Config struct {
+	Valkey Valkey
+}
+
+type Valkey struct {
+	Addr string
 }

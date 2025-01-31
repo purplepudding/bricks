@@ -20,7 +20,7 @@ build:
 manifests:
   kustomize:
     paths:
-      - deploy/k8s/base
+      - deploy/k8s/local
 
 portForward:
   - resourceType: service

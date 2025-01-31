@@ -4,18 +4,19 @@ import (
 	"net"
 
 	authv1 "github.com/purplepudding/foundation/api/pkg/pb/foundation/v1/auth"
+	"github.com/purplepudding/foundation/auth/internal/config"
 	"github.com/purplepudding/foundation/auth/internal/grpcsvc"
 	"github.com/purplepudding/foundation/lib/microservice"
 	"google.golang.org/grpc"
 )
 
-var _ microservice.Service = (*Service)(nil)
+var _ microservice.Service[*config.Config] = (*Service)(nil)
 
 type Service struct {
 	server *grpc.Server
 }
 
-func (service *Service) Wire() error {
+func (service *Service) Wire(_ *config.Config) error {
 	service.server = microservice.GRPCServer(func(g *grpc.Server) {
 		authv1.RegisterAuthServiceServer(g, &grpcsvc.AuthService{})
 	})

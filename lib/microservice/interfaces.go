@@ -1,6 +1,6 @@
 package microservice
 
-type Service interface {
+type Service[T any] interface {
 	Run() error
-	Wire() error
+	Wire(cfg T) error
 }

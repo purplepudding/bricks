@@ -157,7 +157,10 @@ require (
 	github.com/stoewer/go-strcase v1.3.0 // indirect
 	github.com/tetratelabs/wazero v1.8.2 // indirect
 	github.com/urfave/cli/v2 v2.27.4 // indirect
+	github.com/valkey-io/valkey-go v1.0.53 // indirect
 	github.com/vbatts/tar-split v0.11.6 // indirect
+	github.com/vmihailenco/msgpack/v5 v5.4.1 // indirect
+	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
 	github.com/xanzy/ssh-agent v0.3.3 // indirect
 	github.com/xrash/smetrics v0.0.0-20240521201337-686a1a2994c1 // indirect
 	github.com/yuin/goldmark v1.7.4 // indirect

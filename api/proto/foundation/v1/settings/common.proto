@@ -6,5 +6,5 @@ import "google/protobuf/struct.proto";
 
 message Settings {
   string key = 1;
-  google.protobuf.Struct value = 2;
+  google.protobuf.Value value = 2;
 }

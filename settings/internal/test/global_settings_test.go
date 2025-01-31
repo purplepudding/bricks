@@ -13,19 +13,23 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/status"
+	"google.golang.org/protobuf/types/known/structpb"
 )
 
 func TestIntegration_GlobalSettings(t *testing.T) {
 	tests := []struct {
 		name string
 		req  *settings.SetGlobalSettingsRequest
-		resp *settings.SetGlobalSettingsResponse
 		code codes.Code
 	}{
 		{
-			name: "do the thing",
-			req:  &settings.SetGlobalSettingsRequest{},
-			resp: &settings.SetGlobalSettingsResponse{},
+			name: "can set settings",
+			req: &settings.SetGlobalSettingsRequest{
+				Settings: []*settings.Settings{{
+					Key:   "foo",
+					Value: structpb.NewStringValue("bar"),
+				}},
+			},
 		},
 	}
 
@@ -51,7 +55,7 @@ func TestIntegration_GlobalSettings(t *testing.T) {
 				assert.Equal(t, tt.code, s.Code())
 			} else {
 				assert.NoError(t, err)
-				test.ProtoEq(t, tt.resp, resp)
+				test.ProtoEq(t, &settings.SetGlobalSettingsResponse{}, resp)
 			}
 		})
 	}

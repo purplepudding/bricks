@@ -20,10 +20,14 @@ build:
 manifests:
   kustomize:
     paths:
-      - deploy/k8s/base
+      - deploy/k8s/local
 
 portForward:
   - resourceType: service
     resourceName: settings
     port: 80
     localPort: 8080
+  - resourceType: service
+    resourceName: settings-valkey
+    port: 6379
+    localPort: 6379

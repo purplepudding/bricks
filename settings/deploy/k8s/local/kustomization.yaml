@@ -1,2 +1,4 @@
 resources:
   - ../base
+  - resources/valkey/deployment.yaml
+  - resources/valkey/service.yaml

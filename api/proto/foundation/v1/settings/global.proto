@@ -9,7 +9,6 @@ message SetGlobalSettingsRequest {
 }
 
 message SetGlobalSettingsResponse {
-  repeated string updated_keys = 1;
 }
 
 service GlobalSettingsService {
