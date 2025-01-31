@@ -12,6 +12,15 @@ message GetServiceSettingsResponse {
   map<string, google.protobuf.Value> settings = 1;
 }
 
+message SetServiceSettingsRequest {
+  string service = 1;
+  map<string, google.protobuf.Value> settings = 2;
+}
+
+message SetServiceSettingsResponse {
+}
+
 service ServiceSettingsService {
   rpc GetServiceSettings(GetServiceSettingsRequest) returns (GetServiceSettingsResponse) {}
+  rpc SetServiceSettings(SetServiceSettingsRequest) returns (SetServiceSettingsResponse) {}
 }

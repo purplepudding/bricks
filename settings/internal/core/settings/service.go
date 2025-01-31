@@ -39,10 +39,15 @@ func (logic *ServiceSettingsLogic) GetForService(ctx context.Context, service st
 	return globals, nil
 }
 
+func (logic *ServiceSettingsLogic) SetForService(ctx context.Context, service string, settings map[string]*structpb.Value) error {
+	return logic.store.Set(ctx, service, settings)
+}
+
 type GlobalSettings interface {
 	Get(ctx context.Context) (map[string]*structpb.Value, error)
 }
 
 type ServiceSettingsStore interface {
 	Get(ctx context.Context, collection string) (map[string]*structpb.Value, error)
+	Set(ctx context.Context, collection string, settings map[string]*structpb.Value) error
 }

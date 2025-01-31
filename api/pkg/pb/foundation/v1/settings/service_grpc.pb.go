@@ -20,6 +20,7 @@ const _ = grpc.SupportPackageIsVersion9
 
 const (
 	ServiceSettingsService_GetServiceSettings_FullMethodName = "/foundation.v1.settings.ServiceSettingsService/GetServiceSettings"
+	ServiceSettingsService_SetServiceSettings_FullMethodName = "/foundation.v1.settings.ServiceSettingsService/SetServiceSettings"
 )
 
 // ServiceSettingsServiceClient is the client API for ServiceSettingsService service.
@@ -27,6 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ServiceSettingsServiceClient interface {
 	GetServiceSettings(ctx context.Context, in *GetServiceSettingsRequest, opts ...grpc.CallOption) (*GetServiceSettingsResponse, error)
+	SetServiceSettings(ctx context.Context, in *SetServiceSettingsRequest, opts ...grpc.CallOption) (*SetServiceSettingsResponse, error)
 }
 
 type serviceSettingsServiceClient struct {
@@ -47,11 +49,22 @@ func (c *serviceSettingsServiceClient) GetServiceSettings(ctx context.Context, i
 	return out, nil
 }
 
+func (c *serviceSettingsServiceClient) SetServiceSettings(ctx context.Context, in *SetServiceSettingsRequest, opts ...grpc.CallOption) (*SetServiceSettingsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SetServiceSettingsResponse)
+	err := c.cc.Invoke(ctx, ServiceSettingsService_SetServiceSettings_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ServiceSettingsServiceServer is the server API for ServiceSettingsService service.
 // All implementations must embed UnimplementedServiceSettingsServiceServer
 // for forward compatibility.
 type ServiceSettingsServiceServer interface {
 	GetServiceSettings(context.Context, *GetServiceSettingsRequest) (*GetServiceSettingsResponse, error)
+	SetServiceSettings(context.Context, *SetServiceSettingsRequest) (*SetServiceSettingsResponse, error)
 	mustEmbedUnimplementedServiceSettingsServiceServer()
 }
 
@@ -64,6 +77,9 @@ type UnimplementedServiceSettingsServiceServer struct{}
 
 func (UnimplementedServiceSettingsServiceServer) GetServiceSettings(context.Context, *GetServiceSettingsRequest) (*GetServiceSettingsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetServiceSettings not implemented")
+}
+func (UnimplementedServiceSettingsServiceServer) SetServiceSettings(context.Context, *SetServiceSettingsRequest) (*SetServiceSettingsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SetServiceSettings not implemented")
 }
 func (UnimplementedServiceSettingsServiceServer) mustEmbedUnimplementedServiceSettingsServiceServer() {
 }
@@ -105,6 +121,24 @@ func _ServiceSettingsService_GetServiceSettings_Handler(srv interface{}, ctx con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ServiceSettingsService_SetServiceSettings_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(SetServiceSettingsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ServiceSettingsServiceServer).SetServiceSettings(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ServiceSettingsService_SetServiceSettings_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ServiceSettingsServiceServer).SetServiceSettings(ctx, req.(*SetServiceSettingsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ServiceSettingsService_ServiceDesc is the grpc.ServiceDesc for ServiceSettingsService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -115,6 +149,10 @@ var ServiceSettingsService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetServiceSettings",
 			Handler:    _ServiceSettingsService_GetServiceSettings_Handler,
+		},
+		{
+			MethodName: "SetServiceSettings",
+			Handler:    _ServiceSettingsService_SetServiceSettings_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
