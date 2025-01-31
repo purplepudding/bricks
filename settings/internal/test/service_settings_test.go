@@ -75,11 +75,11 @@ func TestIntegration_SetServiceSettings(t *testing.T) {
 		code codes.Code
 	}{
 		{
-			name: "can get service settings",
+			name: "can set service settings",
 			req: &settings.SetServiceSettingsRequest{
 				Service: service,
 				Settings: map[string]*structpb.Value{
-					"foo": structpb.NewStringValue("bar"),
+					"baz": structpb.NewStringValue("bat"),
 				},
 			},
 		},

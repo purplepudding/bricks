@@ -70,16 +70,12 @@ func (s *ValkeySettingsStore) Get(ctx context.Context, collection string) (map[s
 
 	results := make(map[string]*structpb.Value, len(dbEntries))
 	for k, v := range dbEntries {
-		slog.Info("processing entry", "key", k, "value", v)
-
 		var val any
 		err := msgpack.Unmarshal([]byte(v), &val)
 		if err != nil {
 			//TODO sentinel and wrapping
 			return nil, err
 		}
-
-		slog.Info("processed entry into map", "key", k, "val", val)
 
 		sv, err := structpb.NewValue(val)
 		if err != nil {
