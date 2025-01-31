@@ -16,15 +16,21 @@ import (
 	"google.golang.org/protobuf/types/known/structpb"
 )
 
-func TestIntegration_SetGlobalSettings(t *testing.T) {
+func TestIntegration_GetServiceSettings(t *testing.T) {
+	service := "service"
+
 	tests := []struct {
 		name string
-		req  *settings.SetGlobalSettingsRequest
+		req  *settings.GetServiceSettingsRequest
+		resp *settings.GetServiceSettingsResponse
 		code codes.Code
 	}{
 		{
-			name: "can set settings",
-			req: &settings.SetGlobalSettingsRequest{
+			name: "can get service settings",
+			req: &settings.GetServiceSettingsRequest{
+				Service: service,
+			},
+			resp: &settings.GetServiceSettingsResponse{
 				Settings: map[string]*structpb.Value{
 					"foo": structpb.NewStringValue("bar"),
 				},
@@ -40,12 +46,12 @@ func TestIntegration_SetGlobalSettings(t *testing.T) {
 				_ = cc.Close()
 			}()
 
-			cli := settings.NewGlobalSettingsServiceClient(cc)
+			cli := settings.NewServiceSettingsServiceClient(cc)
 
 			ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 			defer cancel()
 
-			resp, err := cli.SetGlobalSettings(ctx, tt.req)
+			resp, err := cli.GetServiceSettings(ctx, tt.req)
 			if tt.code != codes.OK {
 				assert.Nil(t, resp)
 				assert.Error(t, err)
@@ -54,7 +60,7 @@ func TestIntegration_SetGlobalSettings(t *testing.T) {
 				assert.Equal(t, tt.code, s.Code())
 			} else {
 				assert.NoError(t, err)
-				test.ProtoEq(t, &settings.SetGlobalSettingsResponse{}, resp)
+				test.ProtoEq(t, tt.resp, resp)
 			}
 		})
 	}

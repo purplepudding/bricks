@@ -20,6 +20,7 @@ type Service struct {
 }
 
 func (service *Service) Wire(cfg *config.Config) error {
+	//TODO add some backoff to this so we don't immediately fail if Valkey can't be accessed - only mark unready
 	valkeyCli, err := valkey.NewClient(valkey.ClientOption{InitAddress: []string{cfg.Valkey.Addr}})
 	if err != nil {
 		return err //TODO sentinel or wrap
@@ -27,11 +28,15 @@ func (service *Service) Wire(cfg *config.Config) error {
 
 	settingsStore := persistence.NewValkeySettingsStore(valkeyCli)
 
-	gsLogic := settings.NewSettingsLogic(settingsStore)
+	gsLogic := settings.NewGlobalSettingsLogic(settingsStore)
 	gsSvc := v1.NewGlobalSettingsService(gsLogic)
+
+	ssLogic := settings.NewServiceSettingsLogic(gsLogic, settingsStore)
+	ssSvc := v1.NewServiceSettingsService(ssLogic)
 
 	service.server = microservice.GRPCServer(func(g *grpc.Server) {
 		settingsv1.RegisterGlobalSettingsServiceServer(g, gsSvc)
+		settingsv1.RegisterServiceSettingsServiceServer(g, ssSvc)
 	})
 
 	return nil

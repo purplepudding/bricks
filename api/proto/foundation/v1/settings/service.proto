@@ -1,0 +1,17 @@
+syntax = "proto3";
+package foundation.v1.settings;
+option go_package = "foundation/v1/settings";
+
+import "google/protobuf/struct.proto";
+
+message GetServiceSettingsRequest {
+  string service = 1;
+}
+
+message GetServiceSettingsResponse {
+  map<string, google.protobuf.Value> settings = 1;
+}
+
+service ServiceSettingsService {
+  rpc GetServiceSettings(GetServiceSettingsRequest) returns (GetServiceSettingsResponse) {}
+}

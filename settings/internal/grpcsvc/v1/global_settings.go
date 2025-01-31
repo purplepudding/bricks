@@ -4,6 +4,7 @@ import (
 	"context"
 
 	settingsv1 "github.com/purplepudding/foundation/api/pkg/pb/foundation/v1/settings"
+	"google.golang.org/protobuf/types/known/structpb"
 )
 
 var _ settingsv1.GlobalSettingsServiceServer = (*GlobalSettingsService)(nil)
@@ -30,5 +31,5 @@ func (g *GlobalSettingsService) SetGlobalSettings(ctx context.Context, req *sett
 }
 
 type GlobalSettingsLogic interface {
-	SetSettings(ctx context.Context, settings []*settingsv1.Settings) error
+	SetSettings(ctx context.Context, settings map[string]*structpb.Value) error
 }
