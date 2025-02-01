@@ -4,11 +4,15 @@ go 1.23.3
 
 require (
 	github.com/bufbuild/buf v1.50.0
+	github.com/cenkalti/backoff/v4 v4.3.0
 	github.com/google/go-cmp v0.6.0
 	github.com/hay-kot/scaffold v0.5.0
 	github.com/knadh/koanf v1.5.0
 	github.com/magefile/mage v1.14.0
 	github.com/stretchr/testify v1.10.0
+	github.com/valkey-io/valkey-go v1.0.53
+	github.com/vmihailenco/msgpack/v5 v5.4.1
+	go.uber.org/mock v0.5.0
 	google.golang.org/grpc v1.70.0
 	google.golang.org/grpc/cmd/protoc-gen-go-grpc v1.5.1
 	google.golang.org/protobuf v1.36.4
@@ -157,9 +161,7 @@ require (
 	github.com/stoewer/go-strcase v1.3.0 // indirect
 	github.com/tetratelabs/wazero v1.8.2 // indirect
 	github.com/urfave/cli/v2 v2.27.4 // indirect
-	github.com/valkey-io/valkey-go v1.0.53 // indirect
 	github.com/vbatts/tar-split v0.11.6 // indirect
-	github.com/vmihailenco/msgpack/v5 v5.4.1 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
 	github.com/xanzy/ssh-agent v0.3.3 // indirect
 	github.com/xrash/smetrics v0.0.0-20240521201337-686a1a2994c1 // indirect
@@ -175,7 +177,6 @@ require (
 	go.opentelemetry.io/otel v1.33.0 // indirect
 	go.opentelemetry.io/otel/metric v1.33.0 // indirect
 	go.opentelemetry.io/otel/trace v1.33.0 // indirect
-	go.uber.org/mock v0.5.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.27.0 // indirect
 	go.uber.org/zap/exp v0.3.0 // indirect
