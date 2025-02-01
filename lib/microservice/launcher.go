@@ -8,7 +8,7 @@ import (
 
 // TODO handle exit signals
 func Launch[T any](name, version string, defaultCfg []byte, cfg T, svc Service[T]) {
-	if err := config.Load(defaultCfg, cfg); err != nil {
+	if err := config.Load(name, defaultCfg, cfg); err != nil {
 		slog.Error("failed to load config", "error", err)
 		panic("config loading failed")
 	}
