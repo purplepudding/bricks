@@ -1,0 +1,37 @@
+@startuml
+!include  https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+System_Ext(gameClient, "Game Client", "The client with which a player plays a game")
+System_Ext(gameServer, "Dedicated Game Server", "An optional dedicated Game Server")
+
+System_Boundary(c1, "Foundation") {
+    Container(auth, "Auth*", "Auth* service")
+    ContainerDb(authDB, "Auth* DB", "Valkey", "Holds user credentials and records")
+
+    Container(playerPersistence, "Player Persistence", "Stores player data by datatype")
+    ContainerDb(playerPersistenceDB, "Player Persistence DB", "Valkey", "Holds player data by datatype")
+
+    Container(settings, "Settings", "Stores static settings data and overrides")
+    ContainerDb(settingsDB, "Player Persistence DB", "Valkey", "Holds static settings data and overrides")
+
+}
+System_Ext(steam, "Steam")
+
+Rel(gameClient, auth, "Login", "gRPC")
+Rel(gameClient, playerPersistence, "R/W player state", "gRPC")
+Rel(gameClient, settings, "Read Game Client Settings", "gRPC")
+
+Rel(gameServer, auth, "Get Token", "gRPC")
+Rel(gameServer, playerPersistence, "R/W player state", "gRPC")
+Rel(gameServer, settings, "Read Game Server Settings", "gRPC")
+
+Rel(auth, authDB, "R/W", "Valkey")
+Rel(auth, settings, "Read Settings", "gRPC")
+Rel(auth, steam, "Validate Login Token", "HTTPS")
+
+Rel(playerPersistence, playerPersistenceDB, "R/W", "Valkey")
+Rel(playerPersistence, settings, "Read Settings", "gRPC")
+
+Rel(settings, settingsDB, "R/W", "Valkey")
+
+@enduml

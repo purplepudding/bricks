@@ -1,0 +1,14 @@
+@startuml
+!include  https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(player, "Player", "A player plays a game through a Game Client")
+System_Ext(gameClient, "Game Client", "The client with which a player plays a game")
+System_Ext(gameServer, "Dedicated Game Server", "An optional dedicated Game Server")
+Container(foundation, "Foundation", "An Open-Source backend engine for Games")
+
+Rel(player, gameClient, "Play")
+Rel(gameClient, foundation, "Backend", "gRPC")
+Rel(gameClient, gameServer, "Play", "TCP/UDP")
+Rel(gameServer, foundation, "Backend", "gRPC")
+
+@enduml
