@@ -1,0 +1,31 @@
+syntax = "proto3";
+package foundation.v1.playerpersistence;
+option go_package = "foundation/v1/playerpersistence";
+
+import "google/protobuf/struct.proto";
+
+message SetRequest {
+  string player_id = 1;
+  string datatype = 2;
+  google.protobuf.Struct value = 3;
+}
+
+message SetResponse {
+}
+
+message GetRequest {
+  string player_id = 1;
+  string datatype = 2;
+}
+
+message GetResponse {
+  google.protobuf.Struct value = 1;
+}
+
+service StorageService {
+  rpc Set(SetRequest) returns (SetResponse) {}
+  rpc Get(GetRequest) returns (GetResponse) {}
+
+  //TODO getAndSet rpc that gets + locks, runs a func on the current data, and sets the updated data - probably want
+  // optimistic locking (see https://valkey.io/topics/transactions/ at the end) or stronger.
+}

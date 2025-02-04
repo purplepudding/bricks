@@ -1,0 +1,4 @@
+name: player-persistence
+
+valkey:
+  addr: player-persistence-valkey:6379

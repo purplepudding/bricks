@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: player-persistence
+  namespace: foundation
+  labels:
+    app: player-persistence
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: player-persistence
+  template:
+    metadata:
+      name: player-persistence
+      labels:
+        app: player-persistence
+    spec:
+      containers:
+        - name: player-persistence
+          image: ghcr.io/purplepudding/foundation/player-persistence:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+              protocol: TCP
+      restartPolicy: Always

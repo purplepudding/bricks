@@ -13,7 +13,7 @@ func Gen() error {
 	mg.Deps() //TODO add go install for all tools
 
 	//TODO make this lazy and only generate the files that need changing
-	return sh.RunV("go", "generate", "./...")
+	return sh.RunV("go", "generate", "-v", "-x", "./...")
 }
 
 func Test() error {
