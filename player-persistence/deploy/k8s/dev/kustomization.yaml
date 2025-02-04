@@ -2,10 +2,8 @@ resources:
   - ../base
   - resources/valkey/deployment.yaml
   - resources/valkey/service.yaml
-
 patches:
   - path: patches/deployment.yaml
-
 images:
   - name: ghcr.io/purplepudding/foundation/player-persistence
-    newTag: v0.8.1
+    newTag: ''
