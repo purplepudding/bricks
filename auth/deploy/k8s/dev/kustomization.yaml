@@ -1,0 +1,9 @@
+resources:
+  - ../base
+
+patches:
+  - path: patches/deployment.yaml
+
+images:
+  - name: ghcr.io/purplepudding/foundation/auth
+    newTag: v0.8.1

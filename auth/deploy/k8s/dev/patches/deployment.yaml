@@ -1,0 +1,10 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth
+  namespace: foundation
+spec:
+  template:
+    spec:
+      imagePullSecrets:
+        - name: ghcr

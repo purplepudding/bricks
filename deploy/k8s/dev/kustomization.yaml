@@ -1,0 +1,4 @@
+resources:
+  - ../../../auth/deploy/k8s/dev
+  - ../../../player-persistence/deploy/k8s/dev
+  - ../../../settings/deploy/k8s/dev

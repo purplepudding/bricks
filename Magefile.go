@@ -4,6 +4,7 @@ package main
 
 import (
 	"os"
+	"os/exec"
 
 	"github.com/magefile/mage/mg"
 	"github.com/magefile/mage/sh"
@@ -44,4 +45,14 @@ func New(template string) error {
 	mg.Deps() //TODO go install scaffold
 
 	return sh.RunV("scaffold", "new", template)
+}
+
+func Deploy(env string) error {
+	mg.Deps()
+
+	c := "kustomize build deploy/k8s/" + env + "| kubectl apply -f -"
+	cmd := exec.Command("bash", "-c", c)
+	cmd.Stdout = os.Stdout
+	cmd.Stderr = os.Stderr
+	return cmd.Run()
 }

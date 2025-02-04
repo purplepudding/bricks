@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: settings-valkey
+  namespace: foundation
+  labels:
+    app: settings-valkey
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: settings-valkey
+  template:
+    metadata:
+      name: settings-valkey
+      labels:
+        app: settings-valkey
+    spec:
+      containers:
+        - name: settings-valkey
+          image: valkey/valkey:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+              protocol: TCP
+      restartPolicy: Always
