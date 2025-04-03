@@ -11,7 +11,7 @@ import (
 )
 
 func Gen() error {
-	mg.Deps() //TODO add go install for all tools
+	mg.Deps()
 
 	//TODO make this lazy and only generate the files that need changing
 	return sh.RunV("go", "generate", "-v", "-x", "./...")
