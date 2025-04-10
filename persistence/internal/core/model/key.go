@@ -16,7 +16,7 @@ type PlayerStorageKey struct {
 }
 
 func (psk PlayerStorageKey) Category() string {
-	return fmt.Sprintf("player.%s.%s", psk.TitleID, psk.Datatype)
+	return fmt.Sprintf("player_%s_%s", psk.TitleID, psk.Datatype)
 }
 
 func (psk PlayerStorageKey) Key() string {
@@ -29,7 +29,7 @@ type TitleStorageKey struct {
 }
 
 func (tsk TitleStorageKey) Category() string {
-	return fmt.Sprintf("title.%s", tsk.TitleID)
+	return fmt.Sprintf("title_%s", tsk.TitleID)
 }
 
 func (tsk TitleStorageKey) Key() string {

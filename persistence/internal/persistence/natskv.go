@@ -2,6 +2,8 @@ package persistence
 
 import (
 	"context"
+	"errors"
+	"fmt"
 
 	"github.com/nats-io/nats.go/jetstream"
 	"github.com/purplepudding/foundation/lib/clients/natscli"
@@ -53,8 +55,17 @@ func (n *NatsKVPersistence) Set(ctx context.Context, key model.StorageKey, value
 
 	kv, err := n.js.KeyValue(ctx, key.Category())
 	if err != nil {
-		//TODO if kv bucket doesn't exist, create it and continue
-		return err
+		if !errors.Is(err, jetstream.ErrBucketNotFound) {
+			return err
+		}
+
+		// As the bucket doesn't exist, we need to create it first and then continue
+		kv, err = n.js.CreateKeyValue(ctx, jetstream.KeyValueConfig{
+			Bucket: key.Category(),
+		})
+		if err != nil {
+			return fmt.Errorf("failed to create bucket %q: %w", key.Category(), err)
+		}
 	}
 
 	if _, err := kv.Put(ctx, key.Key(), b); err != nil {

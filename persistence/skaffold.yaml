@@ -1,13 +1,13 @@
 apiVersion: skaffold/v4beta11
 kind: Config
 metadata:
-  name: player-persistence
+  name: persistence
 
 build:
   artifacts:
-    - image: ghcr.io/purplepudding/foundation/player-persistence
+    - image: ghcr.io/purplepudding/foundation/persistence
       ko:
-        main: ./cmd/player-persistence
+        main: ./cmd/persistence
         dependencies:
           paths:
             - cmd
@@ -41,7 +41,7 @@ deploy:
 
 portForward:
   - resourceType: service
-    resourceName: player-persistence
+    resourceName: persistence
     port: 80
     localPort: 8080
   - resourceType: service
