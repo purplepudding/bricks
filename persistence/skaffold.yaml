@@ -1,0 +1,51 @@
+apiVersion: skaffold/v4beta11
+kind: Config
+metadata:
+  name: player-persistence
+
+build:
+  artifacts:
+    - image: ghcr.io/purplepudding/foundation/player-persistence
+      ko:
+        main: ./cmd/player-persistence
+        dependencies:
+          paths:
+            - cmd
+            - deploy
+            - internal
+            - ../lib
+            - ../go.mod
+            - ../go.sum
+
+manifests:
+  kustomize:
+    paths:
+      - deploy/k8s/local
+  helm:
+    releases:
+      - name: nats
+        remoteChart: nats
+        repo: https://nats-io.github.io/k8s/helm/charts
+        setValues:
+          config:
+            jetstream:
+              enabled: true
+              fileStore:
+                pvc:
+                  size: 1Gi
+          natsBox:
+            enabled: false
+
+deploy:
+  tolerateFailuresUntilDeadline: true
+
+portForward:
+  - resourceType: service
+    resourceName: player-persistence
+    port: 80
+    localPort: 8080
+  - resourceType: service
+    resourceName: nats
+    namespace: default
+    port: 4222
+    localPort: 4222

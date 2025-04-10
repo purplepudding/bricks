@@ -1,0 +1,79 @@
+syntax = "proto3";
+package foundation.v1.persistence;
+option go_package = "foundation/v1/persistence";
+
+import "google/protobuf/struct.proto";
+
+message Key {
+  oneof typed_key {
+    PlayerKey player_key = 1;
+    TitleKey title_key = 2;
+    //TODO any other category of value to be stored
+  }
+}
+
+message PlayerKey {
+  string title_id = 1;
+  string player_id = 2;
+  string datatype = 3;
+}
+
+message TitleKey {
+  string title_id = 1;
+  string datatype = 2;
+}
+
+message GetRequest {
+  Key key = 1;
+}
+
+message GetResponse {
+  google.protobuf.Struct value = 1;
+}
+
+message SetRequest {
+  Key key = 1;
+  google.protobuf.Struct value = 2;
+}
+
+message SetResponse {
+}
+
+message WatchRequest {
+  Key key = 1;
+}
+
+message WatchResponse {
+  google.protobuf.Struct value = 1;
+}
+
+message UpdateRequest {
+  oneof request_type {
+    GetRequest get = 1;
+    SetRequest set = 2;
+  }
+}
+
+message UpdateResponse {
+  oneof response_type {
+    GetResponse get = 1;
+    SetResponse set = 2;
+  }
+}
+
+service StorageService {
+  // Get obtains the currently stored value for a given key
+  rpc Get(GetRequest) returns (GetResponse) {}
+
+  // Set writes the provided value for the given key - if used concurrently, the last write wins.
+  rpc Set(SetRequest) returns (SetResponse) {}
+
+  // Watch streams updates to a given key as they are made
+  rpc Watch(WatchRequest) returns (stream WatchResponse){}
+
+  // Update establishes a two-way connection with the server to:
+  // - obtain the current value for a key, holding a lock on it and blocking any other "update" or "set" requests for the same key
+  // - set a new value for the key, releasing the lock on that key and closing the connection
+  rpc Update(stream UpdateRequest) returns (stream UpdateResponse) {}
+  //TODO streaming update style rpc that gets + watches the key, waits for a response, and sets the updated data if sent - probably want optimistic locking (see https://valkey.io/topics/transactions/ at the end) or stronger.
+}

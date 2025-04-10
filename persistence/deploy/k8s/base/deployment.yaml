@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: persistence
+  namespace: foundation
+  labels:
+    app: persistence
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: persistence
+  template:
+    metadata:
+      name: persistence
+      labels:
+        app: persistence
+    spec:
+      containers:
+        - name: persistence
+          image: ghcr.io/purplepudding/foundation/persistence:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+              protocol: TCP
+      restartPolicy: Always

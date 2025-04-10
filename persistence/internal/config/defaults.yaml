@@ -1,0 +1,7 @@
+name: persistence
+
+nats:
+  url: nats://nats.default.svc.cluster.local:4222
+
+valkey:
+  addr: persistence-valkey:6379

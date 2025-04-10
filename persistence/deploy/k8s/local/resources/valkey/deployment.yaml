@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: persistence-valkey
+  namespace: foundation
+  labels:
+    app: persistence-valkey
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: persistence-valkey
+  template:
+    metadata:
+      name: persistence-valkey
+      labels:
+        app: persistence-valkey
+    spec:
+      containers:
+        - name: persistence-valkey
+          image: valkey/valkey:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+              protocol: TCP
+      restartPolicy: Always
