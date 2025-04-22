@@ -2,8 +2,8 @@ package main
 
 import (
 	"github.com/purplepudding/foundation"
-	"github.com/purplepudding/foundation/auth/internal/config"
-	"github.com/purplepudding/foundation/auth/internal/service"
+	"github.com/purplepudding/foundation/auth/config"
+	"github.com/purplepudding/foundation/auth/service"
 	"github.com/purplepudding/foundation/lib/microservice"
 )
 

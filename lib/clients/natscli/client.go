@@ -18,7 +18,7 @@ func NewJetStream(cfg Config) (jetstream.JetStream, error) {
 	err := backoff.Retry(func() error {
 		nc, err := nats.Connect(cfg.URL)
 		if err != nil {
-			slog.Error("error connecting to nats, backing off and retrying", "err", err)
+			slog.Error("error connecting to nats, backing off and retrying", "err", err, "url", cfg.URL)
 			return err
 		}
 

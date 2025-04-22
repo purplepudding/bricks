@@ -48,6 +48,7 @@ jobs:
       matrix:
         svc:
           - auth
+          - monolith
           - player-persistence
           - settings
 

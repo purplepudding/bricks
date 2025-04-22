@@ -11,8 +11,10 @@ build:
         dependencies:
           paths:
             - cmd
+            - config
             - deploy
             - internal
+            - service
             - ../lib
             - ../go.mod
             - ../go.sum

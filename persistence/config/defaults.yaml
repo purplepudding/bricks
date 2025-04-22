@@ -1,4 +1,5 @@
 name: persistence
+servingAddr: ":8080"
 
 nats:
   url: nats://nats.default.svc.cluster.local:4222

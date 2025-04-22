@@ -3,8 +3,8 @@ package main
 import (
 	"github.com/purplepudding/foundation"
 	"github.com/purplepudding/foundation/lib/microservice"
-	"github.com/purplepudding/foundation/persistence/internal/config"
-	"github.com/purplepudding/foundation/persistence/internal/service"
+	"github.com/purplepudding/foundation/persistence/config"
+	"github.com/purplepudding/foundation/persistence/service"
 )
 
 func main() {

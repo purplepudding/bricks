@@ -1,4 +1,5 @@
 name: settings
+servingAddr: ":8080"
 
 valkey:
   addr: settings-valkey:6379

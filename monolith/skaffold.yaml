@@ -1,19 +1,18 @@
 apiVersion: skaffold/v4beta11
 kind: Config
 metadata:
-  name: {{.ProjectKebab}}
+  name: monolith
 
 build:
   artifacts:
-    - image: ghcr.io/purplepudding/foundation/{{.ProjectKebab}}
+    - image: ghcr.io/purplepudding/foundation/monolith
       ko:
-        main: ./cmd/{{.ProjectKebab}}
+        main: ./cmd/monolith
         dependencies:
           paths:
             - cmd
             - config
             - deploy
-            - internal
             - service
             - ../lib
             - ../go.mod
@@ -26,6 +25,6 @@ manifests:
 
 portForward:
   - resourceType: service
-    resourceName: {{.ProjectKebab}}
+    resourceName: monolith
     port: 80
     localPort: 8080

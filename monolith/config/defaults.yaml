@@ -1,0 +1,14 @@
+name: monolith
+
+auth:
+  servingAddr: ":8081"
+
+persistence:
+  servingAddr: ":8082"
+  nats:
+    url: nats://localhost:4222
+
+settings:
+  servingAddr: ":8083"
+  valkey:
+    addr: localhost:6379
