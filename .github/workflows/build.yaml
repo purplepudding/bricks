@@ -35,6 +35,16 @@ jobs:
           commit: ${{ github.sha }}
           tag: ${{ steps.semver.outputs.next }}
 
+  publish-api:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: bufbuild/buf-action@v1
+        with:
+          token: ${{ secrets.BUF_TOKEN }}
+          input: api/
+
   build-container:
     runs-on: ubuntu-latest
     permissions:

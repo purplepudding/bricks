@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             (unknown)
-// source: foundation/v1/settings/service.proto
+// source: bricks/v1/settings/service.proto
 
 package settings
 
@@ -19,8 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ServiceSettingsService_GetServiceSettings_FullMethodName = "/foundation.v1.settings.ServiceSettingsService/GetServiceSettings"
-	ServiceSettingsService_SetServiceSettings_FullMethodName = "/foundation.v1.settings.ServiceSettingsService/SetServiceSettings"
+	ServiceSettingsService_GetServiceSettings_FullMethodName = "/bricks.v1.settings.ServiceSettingsService/GetServiceSettings"
+	ServiceSettingsService_SetServiceSettings_FullMethodName = "/bricks.v1.settings.ServiceSettingsService/SetServiceSettings"
 )
 
 // ServiceSettingsServiceClient is the client API for ServiceSettingsService service.
@@ -143,7 +143,7 @@ func _ServiceSettingsService_SetServiceSettings_Handler(srv interface{}, ctx con
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var ServiceSettingsService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "foundation.v1.settings.ServiceSettingsService",
+	ServiceName: "bricks.v1.settings.ServiceSettingsService",
 	HandlerType: (*ServiceSettingsServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -156,5 +156,5 @@ var ServiceSettingsService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "foundation/v1/settings/service.proto",
+	Metadata: "bricks/v1/settings/service.proto",
 }

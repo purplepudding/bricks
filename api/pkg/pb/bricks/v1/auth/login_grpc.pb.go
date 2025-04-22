@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             (unknown)
-// source: foundation/v1/auth/login.proto
+// source: bricks/v1/auth/login.proto
 
 package auth
 
@@ -19,7 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	AuthService_Login_FullMethodName = "/foundation.v1.auth.AuthService/Login"
+	AuthService_Login_FullMethodName = "/bricks.v1.auth.AuthService/Login"
 )
 
 // AuthServiceClient is the client API for AuthService service.
@@ -108,7 +108,7 @@ func _AuthService_Login_Handler(srv interface{}, ctx context.Context, dec func(i
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var AuthService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "foundation.v1.auth.AuthService",
+	ServiceName: "bricks.v1.auth.AuthService",
 	HandlerType: (*AuthServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -117,5 +117,5 @@ var AuthService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "foundation/v1/auth/login.proto",
+	Metadata: "bricks/v1/auth/login.proto",
 }

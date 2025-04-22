@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             (unknown)
-// source: foundation/v1/settings/global.proto
+// source: bricks/v1/settings/global.proto
 
 package settings
 
@@ -19,7 +19,7 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	GlobalSettingsService_SetGlobalSettings_FullMethodName = "/foundation.v1.settings.GlobalSettingsService/SetGlobalSettings"
+	GlobalSettingsService_SetGlobalSettings_FullMethodName = "/bricks.v1.settings.GlobalSettingsService/SetGlobalSettings"
 )
 
 // GlobalSettingsServiceClient is the client API for GlobalSettingsService service.
@@ -108,7 +108,7 @@ func _GlobalSettingsService_SetGlobalSettings_Handler(srv interface{}, ctx conte
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var GlobalSettingsService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "foundation.v1.settings.GlobalSettingsService",
+	ServiceName: "bricks.v1.settings.GlobalSettingsService",
 	HandlerType: (*GlobalSettingsServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -117,5 +117,5 @@ var GlobalSettingsService_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "foundation/v1/settings/global.proto",
+	Metadata: "bricks/v1/settings/global.proto",
 }

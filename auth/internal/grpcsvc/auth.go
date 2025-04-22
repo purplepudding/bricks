@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	authv1 "github.com/purplepudding/bricks/api/pkg/pb/foundation/v1/auth"
+	authv1 "github.com/purplepudding/bricks/api/pkg/pb/bricks/v1/auth"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 

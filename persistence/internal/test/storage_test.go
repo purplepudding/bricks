@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	persistencev1 "github.com/purplepudding/bricks/api/pkg/pb/foundation/v1/persistence"
+	persistencev1 "github.com/purplepudding/bricks/api/pkg/pb/bricks/v1/persistence"
 	"github.com/purplepudding/bricks/lib/test"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"

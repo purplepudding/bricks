@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 
-	persistencev1 "github.com/purplepudding/bricks/api/pkg/pb/foundation/v1/persistence"
+	persistencev1 "github.com/purplepudding/bricks/api/pkg/pb/bricks/v1/persistence"
 	"github.com/purplepudding/bricks/persistence/internal/core/model"
 	"google.golang.org/protobuf/types/known/structpb"
 )

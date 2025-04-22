@@ -3,7 +3,7 @@ package service
 import (
 	"net"
 
-	persistencev1 "github.com/purplepudding/bricks/api/pkg/pb/foundation/v1/persistence"
+	persistencev1 "github.com/purplepudding/bricks/api/pkg/pb/bricks/v1/persistence"
 	"github.com/purplepudding/bricks/lib/microservice"
 	"github.com/purplepudding/bricks/persistence/config"
 	"github.com/purplepudding/bricks/persistence/internal/core/storage"

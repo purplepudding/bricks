@@ -3,7 +3,7 @@ package service
 import (
 	"net"
 
-	settingsv1 "github.com/purplepudding/bricks/api/pkg/pb/foundation/v1/settings"
+	settingsv1 "github.com/purplepudding/bricks/api/pkg/pb/bricks/v1/settings"
 	"github.com/purplepudding/bricks/lib/clients/valkeycli"
 	"github.com/purplepudding/bricks/lib/microservice"
 	"github.com/purplepudding/bricks/settings/config"

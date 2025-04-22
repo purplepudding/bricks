@@ -3,7 +3,7 @@ package service
 import (
 	"net"
 
-	authv1 "github.com/purplepudding/bricks/api/pkg/pb/foundation/v1/auth"
+	authv1 "github.com/purplepudding/bricks/api/pkg/pb/bricks/v1/auth"
 	"github.com/purplepudding/bricks/auth/config"
 	"github.com/purplepudding/bricks/auth/internal/grpcsvc"
 	"github.com/purplepudding/bricks/lib/microservice"

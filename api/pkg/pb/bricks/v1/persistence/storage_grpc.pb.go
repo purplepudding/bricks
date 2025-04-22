@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             (unknown)
-// source: foundation/v1/persistence/storage.proto
+// source: bricks/v1/persistence/storage.proto
 
 package persistence
 
@@ -19,10 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	StorageService_Get_FullMethodName    = "/foundation.v1.persistence.StorageService/Get"
-	StorageService_Set_FullMethodName    = "/foundation.v1.persistence.StorageService/Set"
-	StorageService_Watch_FullMethodName  = "/foundation.v1.persistence.StorageService/Watch"
-	StorageService_Update_FullMethodName = "/foundation.v1.persistence.StorageService/Update"
+	StorageService_Get_FullMethodName    = "/bricks.v1.persistence.StorageService/Get"
+	StorageService_Set_FullMethodName    = "/bricks.v1.persistence.StorageService/Set"
+	StorageService_Watch_FullMethodName  = "/bricks.v1.persistence.StorageService/Watch"
+	StorageService_Update_FullMethodName = "/bricks.v1.persistence.StorageService/Update"
 )
 
 // StorageServiceClient is the client API for StorageService service.
@@ -216,7 +216,7 @@ type StorageService_UpdateServer = grpc.BidiStreamingServer[UpdateRequest, Updat
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var StorageService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "foundation.v1.persistence.StorageService",
+	ServiceName: "bricks.v1.persistence.StorageService",
 	HandlerType: (*StorageServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -241,5 +241,5 @@ var StorageService_ServiceDesc = grpc.ServiceDesc{
 			ClientStreams: true,
 		},
 	},
-	Metadata: "foundation/v1/persistence/storage.proto",
+	Metadata: "bricks/v1/persistence/storage.proto",
 }
