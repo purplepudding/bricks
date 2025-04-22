@@ -5,8 +5,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/purplepudding/foundation/api/pkg/pb/foundation/v1/{{.ProjectKebab}}"
-	"github.com/purplepudding/foundation/lib/test"
+	"github.com/purplepudding/bricks/api/pkg/pb/foundation/v1/{{.ProjectKebab}}"
+	"github.com/purplepudding/bricks/lib/test"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc"

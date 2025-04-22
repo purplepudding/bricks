@@ -1,12 +1,12 @@
 package main
 
 import (
-	"github.com/purplepudding/foundation"
-	"github.com/purplepudding/foundation/auth/config"
-	"github.com/purplepudding/foundation/auth/service"
-	"github.com/purplepudding/foundation/lib/microservice"
+	"github.com/purplepudding/bricks"
+	"github.com/purplepudding/bricks/auth/config"
+	"github.com/purplepudding/bricks/auth/service"
+	"github.com/purplepudding/bricks/lib/microservice"
 )
 
 func main() {
-	microservice.Launch("auth", foundation.Version, config.DefaultCfg, new(config.Config), new(service.Service))
+	microservice.Launch("auth", bricks.Version, config.DefaultCfg, new(config.Config), new(service.Service))
 }

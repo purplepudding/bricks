@@ -3,8 +3,8 @@ package persistence
 import (
 	"context"
 
-	"github.com/purplepudding/foundation/persistence/internal/core/model"
-	"github.com/purplepudding/foundation/persistence/internal/core/storage"
+	"github.com/purplepudding/bricks/persistence/internal/core/model"
+	"github.com/purplepudding/bricks/persistence/internal/core/storage"
 	"github.com/valkey-io/valkey-go"
 	"github.com/vmihailenco/msgpack/v5"
 	"google.golang.org/protobuf/types/known/structpb"

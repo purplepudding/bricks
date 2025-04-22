@@ -6,7 +6,7 @@ import (
 	"log/slog"
 	"maps"
 
-	"github.com/purplepudding/foundation/settings/internal/core/settings"
+	"github.com/purplepudding/bricks/settings/internal/core/settings"
 	"github.com/valkey-io/valkey-go"
 	"github.com/vmihailenco/msgpack/v5"
 	"google.golang.org/protobuf/types/known/structpb"

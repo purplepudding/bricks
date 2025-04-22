@@ -1,4 +1,4 @@
-module github.com/purplepudding/foundation
+module github.com/purplepudding/bricks
 
 go 1.24.1
 

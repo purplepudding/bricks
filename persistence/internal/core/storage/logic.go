@@ -3,8 +3,8 @@ package storage
 import (
 	"context"
 
-	"github.com/purplepudding/foundation/persistence/internal/core/model"
-	"github.com/purplepudding/foundation/persistence/internal/grpcsvc"
+	"github.com/purplepudding/bricks/persistence/internal/core/model"
+	"github.com/purplepudding/bricks/persistence/internal/grpcsvc"
 	"google.golang.org/protobuf/types/known/structpb"
 )
 

@@ -3,7 +3,7 @@ package microservice
 import (
 	"log/slog"
 
-	"github.com/purplepudding/foundation/lib/config"
+	"github.com/purplepudding/bricks/lib/config"
 )
 
 // TODO handle exit signals

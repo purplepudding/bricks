@@ -6,9 +6,9 @@ import (
 	"fmt"
 
 	"github.com/nats-io/nats.go/jetstream"
-	"github.com/purplepudding/foundation/lib/clients/natscli"
-	"github.com/purplepudding/foundation/persistence/internal/core/model"
-	"github.com/purplepudding/foundation/persistence/internal/core/storage"
+	"github.com/purplepudding/bricks/lib/clients/natscli"
+	"github.com/purplepudding/bricks/persistence/internal/core/model"
+	"github.com/purplepudding/bricks/persistence/internal/core/storage"
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/structpb"
 )

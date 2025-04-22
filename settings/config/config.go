@@ -3,8 +3,8 @@ package config
 import (
 	_ "embed"
 
-	"github.com/purplepudding/foundation/lib/clients/valkeycli"
-	"github.com/purplepudding/foundation/lib/config"
+	"github.com/purplepudding/bricks/lib/clients/valkeycli"
+	"github.com/purplepudding/bricks/lib/config"
 )
 
 //go:embed defaults.yaml

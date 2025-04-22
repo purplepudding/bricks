@@ -3,7 +3,7 @@ package v1
 import (
 	"context"
 
-	settingsv1 "github.com/purplepudding/foundation/api/pkg/pb/foundation/v1/settings"
+	settingsv1 "github.com/purplepudding/bricks/api/pkg/pb/foundation/v1/settings"
 	"google.golang.org/protobuf/types/known/structpb"
 )
 

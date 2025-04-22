@@ -6,7 +6,7 @@ import (
 	"strings"
 
 	"github.com/knadh/koanf"
-	"github.com/purplepudding/foundation/api/pkg/pb/foundation/v1/settings"
+	"github.com/purplepudding/bricks/api/pkg/pb/foundation/v1/settings"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/protobuf/types/known/structpb"

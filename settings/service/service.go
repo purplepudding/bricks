@@ -3,13 +3,13 @@ package service
 import (
 	"net"
 
-	settingsv1 "github.com/purplepudding/foundation/api/pkg/pb/foundation/v1/settings"
-	"github.com/purplepudding/foundation/lib/clients/valkeycli"
-	"github.com/purplepudding/foundation/lib/microservice"
-	"github.com/purplepudding/foundation/settings/config"
-	"github.com/purplepudding/foundation/settings/internal/core/settings"
-	v1 "github.com/purplepudding/foundation/settings/internal/grpcsvc/v1"
-	"github.com/purplepudding/foundation/settings/internal/persistence"
+	settingsv1 "github.com/purplepudding/bricks/api/pkg/pb/foundation/v1/settings"
+	"github.com/purplepudding/bricks/lib/clients/valkeycli"
+	"github.com/purplepudding/bricks/lib/microservice"
+	"github.com/purplepudding/bricks/settings/config"
+	"github.com/purplepudding/bricks/settings/internal/core/settings"
+	v1 "github.com/purplepudding/bricks/settings/internal/grpcsvc/v1"
+	"github.com/purplepudding/bricks/settings/internal/persistence"
 	"google.golang.org/grpc"
 )
 

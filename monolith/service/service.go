@@ -7,11 +7,11 @@ import (
 	"time"
 
 	"github.com/nats-io/nats-server/v2/server"
-	authSvc "github.com/purplepudding/foundation/auth/service"
-	"github.com/purplepudding/foundation/lib/microservice"
-	"github.com/purplepudding/foundation/monolith/config"
-	persistenceSvc "github.com/purplepudding/foundation/persistence/service"
-	settingsSvc "github.com/purplepudding/foundation/settings/service"
+	authSvc "github.com/purplepudding/bricks/auth/service"
+	"github.com/purplepudding/bricks/lib/microservice"
+	"github.com/purplepudding/bricks/monolith/config"
+	persistenceSvc "github.com/purplepudding/bricks/persistence/service"
+	settingsSvc "github.com/purplepudding/bricks/settings/service"
 )
 
 var _ microservice.Service[*config.Config] = (*Service)(nil)

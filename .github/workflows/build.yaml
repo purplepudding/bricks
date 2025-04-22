@@ -65,7 +65,7 @@ jobs:
 
       - name: Build container
         run:
-          GOFLAGS="-ldflags=-X=github.com/purplepudding/foundation.Version=${{needs.version.outputs.version}}" ko build ./${{matrix.svc}}/cmd/${{matrix.svc}} --tags ${{needs.version.outputs.version}} --tags latest --base-import-paths --platform=linux/amd64,linux/arm64
+          GOFLAGS="-ldflags=-X=github.com/purplepudding/bricks.Version=${{needs.version.outputs.version}}" ko build ./${{matrix.svc}}/cmd/${{matrix.svc}} --tags ${{needs.version.outputs.version}} --tags latest --base-import-paths --platform=linux/amd64,linux/arm64
 
       - name: Update kustomization
         uses: fjogeleit/yaml-update-action@main

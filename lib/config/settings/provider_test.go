@@ -5,8 +5,8 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/purplepudding/foundation/api/pkg/pb/foundation/v1/settings"
-	mocksettings "github.com/purplepudding/foundation/api/pkg/pb/foundation/v1/settings/mock"
+	"github.com/purplepudding/bricks/api/pkg/pb/foundation/v1/settings"
+	mocksettings "github.com/purplepudding/bricks/api/pkg/pb/foundation/v1/settings/mock"
 	"github.com/stretchr/testify/assert"
 	"go.uber.org/mock/gomock"
 	"google.golang.org/protobuf/types/known/structpb"

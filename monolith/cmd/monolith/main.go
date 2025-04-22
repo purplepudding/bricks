@@ -1,12 +1,12 @@
 package main
 
 import (
-	"github.com/purplepudding/foundation"
-	"github.com/purplepudding/foundation/lib/microservice"
-	"github.com/purplepudding/foundation/monolith/config"
-	"github.com/purplepudding/foundation/monolith/service"
+	"github.com/purplepudding/bricks"
+	"github.com/purplepudding/bricks/lib/microservice"
+	"github.com/purplepudding/bricks/monolith/config"
+	"github.com/purplepudding/bricks/monolith/service"
 )
 
 func main() {
-	microservice.Launch("monolith", foundation.Version, config.DefaultCfg, new(config.Config), new(service.Service))
+	microservice.Launch("monolith", bricks.Version, config.DefaultCfg, new(config.Config), new(service.Service))
 }

@@ -3,7 +3,7 @@ package settings
 import (
 	"context"
 
-	v1 "github.com/purplepudding/foundation/settings/internal/grpcsvc/v1"
+	v1 "github.com/purplepudding/bricks/settings/internal/grpcsvc/v1"
 	"google.golang.org/protobuf/types/known/structpb"
 )
 

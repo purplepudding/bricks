@@ -3,12 +3,12 @@ package service
 import (
 	"net"
 
-	persistencev1 "github.com/purplepudding/foundation/api/pkg/pb/foundation/v1/persistence"
-	"github.com/purplepudding/foundation/lib/microservice"
-	"github.com/purplepudding/foundation/persistence/config"
-	"github.com/purplepudding/foundation/persistence/internal/core/storage"
-	"github.com/purplepudding/foundation/persistence/internal/grpcsvc"
-	"github.com/purplepudding/foundation/persistence/internal/persistence"
+	persistencev1 "github.com/purplepudding/bricks/api/pkg/pb/foundation/v1/persistence"
+	"github.com/purplepudding/bricks/lib/microservice"
+	"github.com/purplepudding/bricks/persistence/config"
+	"github.com/purplepudding/bricks/persistence/internal/core/storage"
+	"github.com/purplepudding/bricks/persistence/internal/grpcsvc"
+	"github.com/purplepudding/bricks/persistence/internal/persistence"
 	"google.golang.org/grpc"
 )
 

@@ -13,7 +13,7 @@ import (
 	context "context"
 	reflect "reflect"
 
-	settings "github.com/purplepudding/foundation/api/pkg/pb/foundation/v1/settings"
+	settings "github.com/purplepudding/bricks/api/pkg/pb/foundation/v1/settings"
 	gomock "go.uber.org/mock/gomock"
 	grpc "google.golang.org/grpc"
 )

@@ -3,9 +3,9 @@ package config
 import (
 	_ "embed"
 
-	authConfig "github.com/purplepudding/foundation/auth/config"
-	persistenceConfig "github.com/purplepudding/foundation/persistence/config"
-	settingsConfig "github.com/purplepudding/foundation/settings/config"
+	authConfig "github.com/purplepudding/bricks/auth/config"
+	persistenceConfig "github.com/purplepudding/bricks/persistence/config"
+	settingsConfig "github.com/purplepudding/bricks/settings/config"
 )
 
 //go:embed defaults.yaml
