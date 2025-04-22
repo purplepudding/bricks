@@ -49,7 +49,7 @@ jobs:
         svc:
           - auth
           - monolith
-          - player-persistence
+          - persistence
           - settings
 
     steps:
