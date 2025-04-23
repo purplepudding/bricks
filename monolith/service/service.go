@@ -12,6 +12,7 @@ import (
 	"github.com/purplepudding/bricks/monolith/config"
 	persistenceSvc "github.com/purplepudding/bricks/persistence/service"
 	settingsSvc "github.com/purplepudding/bricks/settings/service"
+	"golang.org/x/sync/errgroup"
 )
 
 var _ microservice.Service[*config.Config] = (*Service)(nil)
@@ -74,14 +75,26 @@ func (service *Service) startNATS() error {
 }
 
 func (service *Service) Run() error {
+	var eg errgroup.Group
+
 	for name, svc := range service.servers {
 		slog.Info("starting service", "svc", name)
-		if err := svc.Run(); err != nil {
-			return fmt.Errorf("failed to boot %s service: %w", name, err)
-		}
+
+		//TODO use the errorgroup context to allow this to gracefully shut down
+		eg.Go(func() error {
+			if err := svc.Run(); err != nil {
+				return fmt.Errorf("failed to boot %s service: %w", name, err)
+			}
+			return nil
+		})
 	}
 
 	slog.Info("startup complete")
+
+	// Wait for any errors to occur
+	if err := eg.Wait(); err != nil {
+		return err
+	}
 
 	return nil
 }
