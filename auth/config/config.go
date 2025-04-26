@@ -10,5 +10,5 @@ import (
 var DefaultCfg []byte
 
 type Config struct {
-	config.Microservice
+	config.Microservice `koanf:",squash"`
 }

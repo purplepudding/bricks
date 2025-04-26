@@ -5,9 +5,9 @@ metadata:
   namespace: bricks
 spec:
   selector:
-    app: persistence
+    app: monolith
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 8080
+      targetPort: 8082
   type: NodePort

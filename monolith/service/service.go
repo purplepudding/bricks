@@ -78,8 +78,6 @@ func (service *Service) Run() error {
 	var eg errgroup.Group
 
 	for name, svc := range service.servers {
-		slog.Info("starting service", "svc", name)
-
 		//TODO use the errorgroup context to allow this to gracefully shut down
 		eg.Go(func() error {
 			if err := svc.Run(); err != nil {

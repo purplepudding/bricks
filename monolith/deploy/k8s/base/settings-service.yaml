@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: persistence
+  name: settings
   namespace: bricks
 spec:
   selector:
-    app: persistence
+    app: monolith
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 8080
+      targetPort: 8083
   type: NodePort

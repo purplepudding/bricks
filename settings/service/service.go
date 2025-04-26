@@ -1,6 +1,7 @@
 package service
 
 import (
+	"log/slog"
 	"net"
 
 	settingsv1 "github.com/purplepudding/bricks/api/pkg/pb/bricks/v1/settings"
@@ -45,6 +46,8 @@ func (service *Service) Wire(cfg *config.Config) error {
 }
 
 func (service *Service) Run() error {
+	slog.Info("starting service", "svc", "settings", "addr", service.cfg.ServingAddr)
+
 	lis, err := net.Listen("tcp", service.cfg.ServingAddr)
 	if err != nil {
 		return err

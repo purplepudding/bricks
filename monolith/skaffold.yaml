@@ -17,6 +17,9 @@ build:
             - ../lib
             - ../go.mod
             - ../go.sum
+            - ../auth
+            - ../persistence
+            - ../settings
 
 manifests:
   kustomize:
@@ -25,6 +28,17 @@ manifests:
 
 portForward:
   - resourceType: service
-    resourceName: monolith
+    resourceName: auth
+    namespace: bricks
     port: 80
-    localPort: 8080
+    localPort: 8081
+  - resourceType: service
+    resourceName: persistence
+    namespace: bricks
+    port: 80
+    localPort: 8082
+  - resourceType: service
+    resourceName: settings
+    namespace: bricks
+    port: 80
+    localPort: 8083

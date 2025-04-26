@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: persistence-valkey
-  namespace: foundation
+  namespace: bricks
   labels:
     app: persistence-valkey
 spec:

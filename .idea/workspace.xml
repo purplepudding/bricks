@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="941a5e72-8034-4240-8fb4-ff2e757f95db" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.scaffold/microservice/{{ .ProjectKebab }}/deploy/k8s/base/namespace.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/auth/deploy/k8s/base/namespace.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/monolith/deploy/k8s/base/auth-service.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/monolith/deploy/k8s/base/namespace.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/monolith/deploy/k8s/base/persistence-service.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/monolith/deploy/k8s/base/settings-service.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/persistence/deploy/k8s/base/namespace.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/settings/deploy/k8s/base/namespace.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/bricks.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.scaffold/microservice/{{ .ProjectKebab }}/cmd/{{.ProjectKebab}}/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/.scaffold/microservice/{{ .ProjectKebab }}/cmd/{{.ProjectKebab}}/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.scaffold/microservice/{{ .ProjectKebab }}/config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/.scaffold/microservice/{{ .ProjectKebab }}/config/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.scaffold/microservice/{{ .ProjectKebab }}/deploy/k8s/base/deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.scaffold/microservice/{{ .ProjectKebab }}/deploy/k8s/base/deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.scaffold/microservice/{{ .ProjectKebab }}/deploy/k8s/base/kustomization.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.scaffold/microservice/{{ .ProjectKebab }}/deploy/k8s/base/kustomization.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.scaffold/microservice/{{ .ProjectKebab }}/deploy/k8s/base/service.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.scaffold/microservice/{{ .ProjectKebab }}/deploy/k8s/base/service.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.scaffold/microservice/{{ .ProjectKebab }}/service/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/.scaffold/microservice/{{ .ProjectKebab }}/service/service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth/config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/auth/config/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth/deploy/k8s/base/deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/auth/deploy/k8s/base/deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth/deploy/k8s/base/kustomization.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/auth/deploy/k8s/base/kustomization.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth/deploy/k8s/base/service.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/auth/deploy/k8s/base/service.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth/deploy/k8s/dev/patches/deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/auth/deploy/k8s/dev/patches/deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/auth/service/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/auth/service/service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/config/microservice.go" beforeDir="false" afterPath="$PROJECT_DIR$/lib/config/microservice.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/monolith/deploy/k8s/base/deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/monolith/deploy/k8s/base/deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/monolith/deploy/k8s/base/kustomization.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/monolith/deploy/k8s/base/kustomization.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/monolith/deploy/k8s/base/service.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/monolith/deploy/k8s/base/service.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/monolith/service/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/monolith/service/service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/monolith/skaffold.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/monolith/skaffold.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/persistence/config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/persistence/config/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/persistence/deploy/k8s/base/deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/persistence/deploy/k8s/base/deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/persistence/deploy/k8s/base/kustomization.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/persistence/deploy/k8s/base/kustomization.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/persistence/deploy/k8s/base/service.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/persistence/deploy/k8s/base/service.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/persistence/deploy/k8s/dev/patches/deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/persistence/deploy/k8s/dev/patches/deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/persistence/deploy/k8s/dev/resources/valkey/deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/persistence/deploy/k8s/dev/resources/valkey/deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/persistence/deploy/k8s/dev/resources/valkey/service.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/persistence/deploy/k8s/dev/resources/valkey/service.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/persistence/deploy/k8s/local/resources/valkey/deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/persistence/deploy/k8s/local/resources/valkey/deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/persistence/deploy/k8s/local/resources/valkey/service.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/persistence/deploy/k8s/local/resources/valkey/service.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/persistence/service/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/persistence/service/service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings/config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/settings/config/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings/deploy/k8s/base/deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/settings/deploy/k8s/base/deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings/deploy/k8s/base/kustomization.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/settings/deploy/k8s/base/kustomization.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings/deploy/k8s/base/service.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/settings/deploy/k8s/base/service.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings/deploy/k8s/dev/patches/deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/settings/deploy/k8s/dev/patches/deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings/deploy/k8s/dev/resources/valkey/deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/settings/deploy/k8s/dev/resources/valkey/deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings/deploy/k8s/dev/resources/valkey/service.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/settings/deploy/k8s/dev/resources/valkey/service.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings/deploy/k8s/local/resources/valkey/deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/settings/deploy/k8s/local/resources/valkey/deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings/deploy/k8s/local/resources/valkey/service.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/settings/deploy/k8s/local/resources/valkey/service.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings/service/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/settings/service/service.go" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="GOROOT" url="file:///usr/lib/go" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="KubernetesApiPersistence"><![CDATA[{}]]></component>
+  <component name="KubernetesApiProvider"><![CDATA[{
+  "isMigrated": true
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 6
+}]]></component>
+  <component name="ProjectId" id="2wGI6RMvoTS0SoeRkSiJqKncfUY" />
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Go Build.go build github.com/purplepudding/bricks/monolith/cmd/monolith.executor": "Debug",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.GoLinterPluginOnboarding": "true",
+    "RunOnceActivity.GoLinterPluginStorageMigration": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "git-widget-placeholder": "main",
+    "go.import.settings.migrated": "true",
+    "go.sdk.automatically.set": "true",
+    "last_opened_file_path": "/home/davidedmonds/code/bricks/monolith/deploy/k8s/base",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/monolith/deploy/k8s/base" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="go build github.com/purplepudding/bricks/monolith/cmd/monolith" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="bricks" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="github.com/purplepudding/bricks/monolith/cmd/monolith" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/monolith/cmd/monolith/main.go" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Build.go build github.com/purplepudding/bricks/monolith/cmd/monolith" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-gosdk-3b128438d3f6-34ac7aa8f6ab-org.jetbrains.plugins.go.sharedIndexes.bundled-GO-251.23774.430" />
+        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-GO-251.23774.430" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="941a5e72-8034-4240-8fb4-ff2e757f95db" name="Changes" comment="" />
+      <created>1745661307712</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1745661307712</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VgoProject">
+    <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/lib/config/loader.go</url>
+          <line>21</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>

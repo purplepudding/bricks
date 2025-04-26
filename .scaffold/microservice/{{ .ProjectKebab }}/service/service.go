@@ -1,11 +1,12 @@
 package service
 
 import (
+	"log/slog"
 	"net"
 
 	{{.ProjectKebab}}v1 "github.com/purplepudding/foundation/api/pkg/pb/foundation/v1/{{.ProjectKebab}}"
-	"github.com/purplepudding/foundation/{{.ProjectKebab}}/internal/config"
-	"github.com/purplepudding/foundation/{{.ProjectKebab}}/internal/grpcsvc"
+	"github.com/purplepudding/foundation/{{.ProjectKebab}}/config"
+	"github.com/purplepudding/foundation/{{.ProjectKebab}}/grpcsvc"
 	"github.com/purplepudding/foundation/lib/microservice"
 	"google.golang.org/grpc"
 )
@@ -28,6 +29,8 @@ func (service *Service) Wire(cfg *config.Config) error {
 }
 
 func (service *Service) Run() error {
+	slog.Info("starting service", "svc", "{{.ProjectKebab}}", "addr", service.cfg.ServingAddr)
+
 	lis, err := net.Listen("tcp", service.cfg.ServingAddr)
 	if err != nil {
 		return err
