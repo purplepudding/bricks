@@ -3,6 +3,9 @@ name: monolith
 auth:
   servingAddr: ":8081"
 
+item:
+  servingAddr: ":8084"
+
 persistence:
   servingAddr: ":8082"
   nats:

@@ -9,5 +9,5 @@ breaking:
     - FILE
 
 modules:
-  - path: proto
+  - path: .
     name: buf.build/purplepudding/bricks

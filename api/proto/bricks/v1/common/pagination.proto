@@ -1,0 +1,12 @@
+syntax = "proto3";
+package bricks.v1.common;
+option go_package = "bricks/v1/common";
+
+// Pagination defines how to select a portion of a large data set for a given request.
+message Pagination {
+  // last_id indicates the id of the last seen record, to indicate where the viewer currently is on the list. If unset,
+  // should default to returning the first record according to the sort
+  optional string last_id = 1;
+  // count indicates how many records to return
+  uint32 count = 2;
+}

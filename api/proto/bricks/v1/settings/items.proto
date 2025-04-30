@@ -1,0 +1,26 @@
+syntax = "proto3";
+package bricks.v1.settings;
+option go_package = "bricks/v1/settings";
+
+import "google/protobuf/struct.proto";
+
+message GetItemParametersRequest {
+  string item_id = 1;
+}
+
+message GetItemParametersResponse {
+  map<string, google.protobuf.Value> parameters = 1;
+}
+
+message SetItemParametersRequest {
+  string item_id = 1;
+  map<string, google.protobuf.Value> parameters = 2;
+}
+
+message SetItemParametersResponse {
+}
+
+service ItemParametersService {
+  rpc GetItemParameters(GetItemParametersRequest) returns (GetItemParametersResponse) {}
+  rpc SetItemParameters(SetItemParametersRequest) returns (SetItemParametersResponse) {}
+}

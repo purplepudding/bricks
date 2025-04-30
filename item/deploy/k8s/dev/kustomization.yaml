@@ -1,0 +1,5 @@
+resources:
+  - ../base
+images:
+  - name: ghcr.io/purplepudding/foundation/item
+    newTag: ''

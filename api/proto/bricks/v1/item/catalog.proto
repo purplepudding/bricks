@@ -1,0 +1,71 @@
+syntax = "proto3";
+package bricks.v1.item;
+option go_package = "bricks/v1/item";
+
+import "bricks/v1/common/pagination.proto";
+import "bricks/v1/common/timerange.proto";
+import "google/protobuf/struct.proto";
+import "google/protobuf/timestamp.proto";
+
+message Item {
+  string id = 1;
+  string name = 2;
+  repeated string labels = 3;
+  fixed64 flags = 4;
+  repeated bricks.v1.common.TimeRange availability_schedule = 5;
+  uint64 version = 6;
+}
+
+message GetRequest {
+  string id = 1;
+}
+
+message GetResponse {
+  Item item = 1;
+  map<string, google.protobuf.Value> asset_bundle = 2;
+  map<string, google.protobuf.Value> parameters = 3;
+}
+
+message ListRequest {
+  optional bricks.v1.common.Pagination page = 1;
+}
+
+message ListResponse {
+  repeated Item items = 1;
+}
+
+message ListAvailableRequest {
+  // request_timestamp should only be permitted to be sent by certain classes of user (for example, a QA team or
+  // playtesters). It is intended to allow testing of unreleased items, as it will be used to override the current
+  // timestamp that would otherwise be used.
+  optional google.protobuf.Timestamp request_timestamp = 1;
+
+  optional bricks.v1.common.Pagination page = 2;
+}
+
+message ListAvailableResponse {
+  repeated Item items = 1;
+}
+
+message UpdateItemRequest {
+  Item item = 1;
+}
+
+message UpdateItemResponse {
+  uint64 version = 1;
+}
+
+service CatalogService {
+  // Get obtains the currently version of a stored Item, including asset bundles and parameters
+  rpc Get(GetRequest) returns (GetResponse) {}
+
+  // List obtains all items in the catalog, whether they're available or not.
+  rpc List(ListRequest) returns (ListResponse) {}
+
+  // ListAvailable obtains all items in the store that are available as of the date of the request (or the overridden
+  // value if the user is permitted to override)
+  rpc ListAvailable(ListAvailableRequest) returns (ListAvailableResponse) {}
+
+  // UpdateItem attempts to amend the item contents
+  rpc UpdateItem(UpdateItemRequest) returns (UpdateItemResponse) {}
+}

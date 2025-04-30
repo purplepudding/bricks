@@ -4,9 +4,9 @@ import (
 	"log/slog"
 	"net"
 
-	{{.ProjectKebab}}v1 "github.com/purplepudding/bricks/api/pkg/pb/bricks/v1/{{.ProjectKebab}}"
-	"github.com/purplepudding/bricks/{{.ProjectKebab}}/config"
-	"github.com/purplepudding/bricks/{{.ProjectKebab}}/internal/grpcsvc"
+	itemv1 "github.com/purplepudding/bricks/api/pkg/pb/bricks/v1/item"
+	"github.com/purplepudding/bricks/item/config"
+	"github.com/purplepudding/bricks/item/internal/grpcsvc"
 	"github.com/purplepudding/bricks/lib/microservice"
 	"google.golang.org/grpc"
 )
@@ -22,14 +22,14 @@ func (service *Service) Wire(cfg *config.Config) error {
 	service.cfg = cfg
 
 	service.server = microservice.GRPCServer(func(g *grpc.Server) {
-		{{.ProjectKebab}}v1.RegisterAAAServiceServer(g, &grpcsvc.AAAService{})
+		itemv1.RegisterCatalogServiceServer(g, &grpcsvc.CatalogService{})
 	})
 
 	return nil
 }
 
 func (service *Service) Run() error {
-	slog.Info("starting service", "svc", "{{.ProjectKebab}}", "addr", service.cfg.ServingAddr)
+	slog.Info("starting service", "svc", "item", "addr", service.cfg.ServingAddr)
 
 	lis, err := net.Listen("tcp", service.cfg.ServingAddr)
 	if err != nil {

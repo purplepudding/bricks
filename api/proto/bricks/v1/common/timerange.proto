@@ -1,0 +1,14 @@
+syntax = "proto3";
+package bricks.v1.common;
+option go_package = "bricks/v1/common";
+
+import "google/protobuf/timestamp.proto";
+
+// TimeRange describes a time period between two dates. Both parameters are optional - by convention, not providing a
+// parameter for either value should indicate that end of the range is the start/end of time as appropriate. Uses of
+// this message should indicate the type of interval this describes - for example, [closed, open) would indicate that
+// `from` was in the range, and `to` would be out of the range.
+message TimeRange {
+  optional google.protobuf.Timestamp from = 1;
+  optional google.protobuf.Timestamp to = 2;
+}

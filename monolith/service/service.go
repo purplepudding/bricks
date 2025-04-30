@@ -8,6 +8,7 @@ import (
 
 	"github.com/nats-io/nats-server/v2/server"
 	authSvc "github.com/purplepudding/bricks/auth/service"
+	itemSvc "github.com/purplepudding/bricks/item/service"
 	"github.com/purplepudding/bricks/lib/microservice"
 	"github.com/purplepudding/bricks/monolith/config"
 	persistenceSvc "github.com/purplepudding/bricks/persistence/service"
@@ -34,6 +35,11 @@ func (service *Service) Wire(cfg *config.Config) error {
 		return fmt.Errorf("failed to wire auth service: %w", err)
 	}
 	service.servers["auth"] = auth
+
+	item := new(itemSvc.Service)
+	if err := item.Wire(&cfg.Item); err != nil {
+		return fmt.Errorf("failed to wire item service: %w", err)
+	}
 
 	persistence := new(persistenceSvc.Service)
 	if err := persistence.Wire(&cfg.Persistence); err != nil {

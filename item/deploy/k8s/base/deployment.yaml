@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: item
+  namespace: bricks
+  labels:
+    app: item
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: item
+  template:
+    metadata:
+      name: item
+      labels:
+        app: item
+    spec:
+      containers:
+        - name: item
+          image: ghcr.io/purplepudding/foundation/item:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 80
+              protocol: TCP
+      restartPolicy: Always

@@ -1,3 +1,3 @@
-package api
+package proto
 
 //go:generate go tool buf generate
