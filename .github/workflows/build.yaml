@@ -58,6 +58,7 @@ jobs:
       matrix:
         svc:
           - auth
+          - item
           - monolith
           - persistence
           - settings

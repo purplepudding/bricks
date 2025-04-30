@@ -6,6 +6,7 @@ import (
 
 	itemv1 "github.com/purplepudding/bricks/api/pkg/pb/bricks/v1/item"
 	"github.com/purplepudding/bricks/item/config"
+	"github.com/purplepudding/bricks/item/internal/core/catalog"
 	"github.com/purplepudding/bricks/item/internal/grpcsvc"
 	"github.com/purplepudding/bricks/lib/microservice"
 	"google.golang.org/grpc"
@@ -21,8 +22,11 @@ type Service struct {
 func (service *Service) Wire(cfg *config.Config) error {
 	service.cfg = cfg
 
+	cl := catalog.New()
+	cs := grpcsvc.NewCatalogService(cl)
+
 	service.server = microservice.GRPCServer(func(g *grpc.Server) {
-		itemv1.RegisterCatalogServiceServer(g, &grpcsvc.CatalogService{})
+		itemv1.RegisterCatalogServiceServer(g, cs)
 	})
 
 	return nil

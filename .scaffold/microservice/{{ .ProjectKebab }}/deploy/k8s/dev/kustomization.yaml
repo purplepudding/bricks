@@ -1,5 +1,5 @@
 resources:
   - ../base
 images:
-  - name: ghcr.io/purplepudding/foundation/{{.ProjectKebab}}
+  - name: ghcr.io/purplepudding/bricks/{{.ProjectKebab}}
     newTag: ''

@@ -5,48 +5,28 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="941a5e72-8034-4240-8fb4-ff2e757f95db" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/api/pkg/pb/bricks/v1/common/pagination.pb.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/pkg/pb/bricks/v1/common/timerange.pb.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/pkg/pb/bricks/v1/item/catalog.pb.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/pkg/pb/bricks/v1/item/catalog_grpc.pb.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/pkg/pb/bricks/v1/settings/items.pb.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/pkg/pb/bricks/v1/settings/items_grpc.pb.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/proto/bricks/v1/common/pagination.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/proto/bricks/v1/common/timerange.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/proto/bricks/v1/item/catalog.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/api/proto/bricks/v1/settings/items.proto" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/item/cmd/item/main.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/item/config/config.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/item/config/defaults.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/item/deploy/k8s/base/deployment.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/item/deploy/k8s/base/kustomization.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/item/deploy/k8s/base/namespace.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/item/deploy/k8s/base/service.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/item/deploy/k8s/dev/kustomization.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/item/deploy/k8s/local/kustomization.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/item/internal/grpcsvc/catalog.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/item/internal/test/login_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/item/service/service.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/item/skaffold.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/item/internal/core/catalog/logic.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/item/internal/core/model/item.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/item/internal/grpcsvc/interfaces.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/item/internal/grpcsvc/mock/interfaces.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/build.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/build.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.scaffold/microservice/{{ .ProjectKebab }}/internal/grpcsvc/aaa.go" beforeDir="false" afterPath="$PROJECT_DIR$/.scaffold/microservice/{{ .ProjectKebab }}/internal/grpcsvc/aaa.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.scaffold/microservice/{{ .ProjectKebab }}/service/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/.scaffold/microservice/{{ .ProjectKebab }}/service/service.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/buf.gen.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/api/proto/buf.gen.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/buf.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/api/proto/buf.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/gen.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/proto/gen.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/pkg/pb/bricks/v1/auth/login.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/pkg/pb/bricks/v1/auth/login.pb.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/pkg/pb/bricks/v1/gen.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/pkg/pb/bricks/v1/gen.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/pkg/pb/bricks/v1/persistence/storage.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/pkg/pb/bricks/v1/persistence/storage.pb.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/pkg/pb/bricks/v1/settings/global.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/pkg/pb/bricks/v1/settings/global.pb.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/pkg/pb/bricks/v1/settings/service.pb.go" beforeDir="false" afterPath="$PROJECT_DIR$/api/pkg/pb/bricks/v1/settings/service.pb.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/monolith/config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/monolith/config/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/monolith/config/defaults.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/monolith/config/defaults.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/monolith/service/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/monolith/service/service.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.scaffold/microservice/{{ .ProjectKebab }}/deploy/k8s/dev/kustomization.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.scaffold/microservice/{{ .ProjectKebab }}/deploy/k8s/dev/kustomization.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/item/deploy/k8s/dev/kustomization.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/item/deploy/k8s/dev/kustomization.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/item/internal/grpcsvc/catalog.go" beforeDir="false" afterPath="$PROJECT_DIR$/item/internal/grpcsvc/catalog.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/item/service/service.go" beforeDir="false" afterPath="$PROJECT_DIR$/item/service/service.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+      </list>
+    </option>
   </component>
   <component name="GOROOT" url="file:///usr/lib/go" />
   <component name="Git.Settings">
@@ -67,6 +47,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "DefaultGoTemplateProperty": "Go File",
     "Go Build.go build github.com/purplepudding/bricks/monolith/cmd/monolith.executor": "Debug",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.GoLinterPluginOnboarding": "true",
@@ -93,6 +74,7 @@
       <recent name="$PROJECT_DIR$/monolith/deploy/k8s/base" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/item/internal/core" />
       <recent name="$PROJECT_DIR$/api/proto" />
       <recent name="$PROJECT_DIR$/api/proto/bricks/v1/common" />
     </key>
