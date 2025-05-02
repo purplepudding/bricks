@@ -1,2 +1,9 @@
 name: item
 servingAddr: ":8080"
+
+clients:
+  nats:
+    url: nats://nats.default.svc.cluster.local:4222
+
+  settings:
+    addr: "settings:8080"

@@ -5,7 +5,7 @@ metadata:
 
 build:
   artifacts:
-    - image: ghcr.io/purplepudding/foundation/persistence
+    - image: ghcr.io/purplepudding/bricks/persistence
       ko:
         main: ./cmd/persistence
         dependencies:

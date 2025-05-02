@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: monolith
-          image: ghcr.io/purplepudding/foundation/monolith:latest
+          image: ghcr.io/purplepudding/bricks/monolith:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80

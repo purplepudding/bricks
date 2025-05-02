@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: {{ .ProjectKebab }}
-          image: ghcr.io/purplepudding/foundation/{{.ProjectKebab}}:latest
+          image: ghcr.io/purplepudding/bricks/{{.ProjectKebab}}:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80

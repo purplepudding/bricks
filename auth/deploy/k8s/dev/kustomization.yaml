@@ -3,5 +3,5 @@ resources:
 patches:
   - path: patches/deployment.yaml
 images:
-  - name: ghcr.io/purplepudding/foundation/auth
+  - name: ghcr.io/purplepudding/bricks/auth
     newTag: ''

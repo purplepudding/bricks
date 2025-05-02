@@ -1,5 +1,5 @@
 resources:
   - ../base
 images:
-  - name: ghcr.io/purplepudding/foundation/monolith
+  - name: ghcr.io/purplepudding/bricks/monolith
     newTag: ''

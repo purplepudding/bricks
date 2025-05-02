@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: persistence
-          image: ghcr.io/purplepudding/foundation/persistence:latest
+          image: ghcr.io/purplepudding/bricks/persistence:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80

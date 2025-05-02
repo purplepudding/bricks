@@ -5,7 +5,7 @@ metadata:
 
 build:
   artifacts:
-    - image: ghcr.io/purplepudding/foundation/settings
+    - image: ghcr.io/purplepudding/bricks/settings
       ko:
         main: ./cmd/settings
         dependencies:

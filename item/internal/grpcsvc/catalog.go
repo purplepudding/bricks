@@ -5,7 +5,8 @@ import (
 	"time"
 
 	itemv1 "github.com/purplepudding/bricks/api/pkg/pb/bricks/v1/item"
-	"github.com/purplepudding/bricks/item/internal/model"
+	"github.com/purplepudding/bricks/item/internal/core/model"
+	"github.com/purplepudding/bricks/lib/common"
 )
 
 var _ itemv1.CatalogServiceServer = (*CatalogService)(nil)
@@ -30,16 +31,16 @@ func (c *CatalogService) Get(ctx context.Context, req *itemv1.GetRequest) (*item
 	}
 
 	resp := &itemv1.GetResponse{
-		Item:        item.IntoPB(),
-		AssetBundle: item.Assets.IntoPB(),
-		Parameters:  item.Parameters.IntoPB(),
+		Item:        item.IntoAPIPB(),
+		AssetBundle: item.Assets,
+		Parameters:  item.Parameters,
 	}
 
 	return resp, nil
 }
 
 func (c *CatalogService) List(ctx context.Context, req *itemv1.ListRequest) (*itemv1.ListResponse, error) {
-	items, err := c.logic.List(ctx)
+	items, err := c.logic.List(ctx, common.PageFromCommonPB(req.Page))
 	if err != nil {
 		//TODO handle
 		return nil, err
@@ -47,7 +48,7 @@ func (c *CatalogService) List(ctx context.Context, req *itemv1.ListRequest) (*it
 
 	var respItems []*itemv1.Item
 	for _, item := range items {
-		respItems = append(respItems, item.IntoPB())
+		respItems = append(respItems, item.IntoAPIPB())
 	}
 
 	return &itemv1.ListResponse{Items: respItems}, nil
@@ -60,7 +61,7 @@ func (c *CatalogService) ListAvailable(ctx context.Context, req *itemv1.ListAvai
 		timestampOverride = &t
 	}
 
-	items, err := c.logic.ListAvailable(ctx, timestampOverride)
+	items, err := c.logic.ListAvailable(ctx, timestampOverride, common.PageFromCommonPB(req.Page))
 	if err != nil {
 		//TODO handle
 		return nil, err
@@ -68,14 +69,14 @@ func (c *CatalogService) ListAvailable(ctx context.Context, req *itemv1.ListAvai
 
 	var respItems []*itemv1.Item
 	for _, item := range items {
-		respItems = append(respItems, item.IntoPB())
+		respItems = append(respItems, item.IntoAPIPB())
 	}
 
 	return &itemv1.ListAvailableResponse{Items: respItems}, nil
 }
 
 func (c *CatalogService) UpdateItem(ctx context.Context, req *itemv1.UpdateItemRequest) (*itemv1.UpdateItemResponse, error) {
-	nu, err := c.logic.UpdateItem(ctx, model.ItemFromPB(req.Item))
+	nu, err := c.logic.UpdateItem(ctx, model.ItemFromAPIPB(req.Item))
 	if err != nil {
 		//TODO handle
 		return nil, err

@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
         - name: item
-          image: ghcr.io/purplepudding/foundation/item:latest
+          image: ghcr.io/purplepudding/bricks/item:latest
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 80

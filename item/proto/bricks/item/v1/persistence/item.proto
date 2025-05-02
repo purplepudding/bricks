@@ -1,0 +1,21 @@
+syntax = "proto3";
+package bricks.item.v1.persistence;
+option go_package = "bricks/item/v1/persistence";
+
+import "google/protobuf/struct.proto";
+import "google/protobuf/timestamp.proto";
+
+//Item describes an item available in the catalog.
+message Item {
+  string name = 1;
+  repeated string labels = 2;
+  fixed64 flags = 3;
+  repeated TimeRange availability_schedule = 4;
+}
+
+//TimeRange describes a period of time. If from is omitted, the range extends to the beginning of time; similarly for to
+//and the end of time.
+message TimeRange {
+  optional google.protobuf.Timestamp from = 1;
+  optional google.protobuf.Timestamp to = 2;
+}

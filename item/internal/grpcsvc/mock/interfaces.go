@@ -14,7 +14,8 @@ import (
 	reflect "reflect"
 	time "time"
 
-	model "github.com/purplepudding/bricks/item/internal/model"
+	model "github.com/purplepudding/bricks/item/internal/core/model"
+	common "github.com/purplepudding/bricks/lib/common"
 	gomock "go.uber.org/mock/gomock"
 )
 
@@ -58,22 +59,22 @@ func (mr *MockCatalogLogicMockRecorder) Get(ctx, id any) *gomock.Call {
 }
 
 // List mocks base method.
-func (m *MockCatalogLogic) List(ctx context.Context) ([]*model.Item, error) {
+func (m *MockCatalogLogic) List(ctx context.Context, pb *common.Page) ([]*model.Item, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "List", ctx)
+	ret := m.ctrl.Call(m, "List", ctx, pb)
 	ret0, _ := ret[0].([]*model.Item)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // List indicates an expected call of List.
-func (mr *MockCatalogLogicMockRecorder) List(ctx any) *gomock.Call {
+func (mr *MockCatalogLogicMockRecorder) List(ctx, pb any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "List", reflect.TypeOf((*MockCatalogLogic)(nil).List), ctx)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "List", reflect.TypeOf((*MockCatalogLogic)(nil).List), ctx, pb)
 }
 
 // ListAvailable mocks base method.
-func (m *MockCatalogLogic) ListAvailable(ctx context.Context, timestampOverride *time.Time) ([]*model.Item, error) {
+func (m *MockCatalogLogic) ListAvailable(ctx context.Context, timestampOverride *time.Time, pb *common.Page) ([]*model.Item, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "ListAvailable", ctx, timestampOverride)
 	ret0, _ := ret[0].([]*model.Item)

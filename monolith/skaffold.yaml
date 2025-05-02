@@ -5,7 +5,7 @@ metadata:
 
 build:
   artifacts:
-    - image: ghcr.io/purplepudding/foundation/monolith
+    - image: ghcr.io/purplepudding/bricks/monolith
       ko:
         main: ./cmd/monolith
         dependencies:

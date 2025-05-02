@@ -7,8 +7,7 @@ import (
 
 	"github.com/knadh/koanf"
 	"github.com/purplepudding/bricks/api/pkg/pb/bricks/v1/settings"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
+	"github.com/purplepudding/bricks/lib/clients/settingscli"
 	"google.golang.org/protobuf/types/known/structpb"
 )
 
@@ -16,18 +15,15 @@ var _ koanf.Provider = (*Provider)(nil)
 
 type Provider struct {
 	service string
-	cli     settings.ServiceSettingsServiceClient
+	cli     *settingscli.Client
 }
 
 func NewProvider(settingsSvcUrl, service string) koanf.Provider {
-	cc, err := grpc.NewClient(settingsSvcUrl, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	cli, err := settingscli.New(settingscli.Config{Addr: settingsSvcUrl})
 	if err != nil {
 		// TODO confirm this is only ever a fatal error
 		panic(err)
 	}
-	//TODO we might want a close method to close cc gracefully on shutdown
-
-	cli := settings.NewServiceSettingsServiceClient(cc)
 
 	return &Provider{
 		cli:     cli,
@@ -40,7 +36,7 @@ func (p *Provider) ReadBytes() ([]byte, error) {
 }
 
 func (p *Provider) Read() (map[string]interface{}, error) {
-	resp, err := p.cli.GetServiceSettings(context.Background(), &settings.GetServiceSettingsRequest{
+	resp, err := p.cli.ServiceSettingsClient.GetServiceSettings(context.Background(), &settings.GetServiceSettingsRequest{
 		Service: p.service,
 	})
 	if err != nil {

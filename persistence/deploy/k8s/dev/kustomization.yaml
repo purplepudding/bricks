@@ -5,5 +5,5 @@ resources:
 patches:
   - path: patches/deployment.yaml
 images:
-  - name: ghcr.io/purplepudding/foundation/persistence
+  - name: ghcr.io/purplepudding/bricks/persistence
     newTag: ''

@@ -5,7 +5,7 @@ metadata:
 
 build:
   artifacts:
-    - image: ghcr.io/purplepudding/foundation/{{.ProjectKebab}}
+    - image: ghcr.io/purplepudding/bricks/{{.ProjectKebab}}
       ko:
         main: ./cmd/{{.ProjectKebab}}
         dependencies:
