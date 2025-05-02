@@ -43,7 +43,7 @@ jobs:
       - uses: bufbuild/buf-action@v1
         with:
           token: ${{ secrets.BUF_TOKEN }}
-          input: api/
+          input: api/proto/
 
   build-container:
     runs-on: ubuntu-latest
