@@ -23,6 +23,20 @@ manifests:
   kustomize:
     paths:
       - deploy/k8s/local
+  helm:
+    releases:
+      - name: nats
+        remoteChart: nats
+        repo: https://nats-io.github.io/k8s/helm/charts
+        setValues:
+          config:
+            jetstream:
+              enabled: true
+              fileStore:
+                pvc:
+                  size: 1Gi
+          natsBox:
+            enabled: false
 
 portForward:
   - resourceType: service
@@ -33,3 +47,8 @@ portForward:
     resourceName: settings-valkey
     port: 6379
     localPort: 6379
+  - resourceType: service
+    resourceName: nats
+    namespace: default
+    port: 4222
+    localPort: 4222

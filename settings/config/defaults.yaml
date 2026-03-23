@@ -3,3 +3,6 @@ servingAddr: ":8080"
 
 valkey:
   addr: settings-valkey:6379
+
+nats:
+  url: nats://nats.default.svc.cluster.local:4222

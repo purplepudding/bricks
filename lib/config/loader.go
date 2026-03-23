@@ -7,12 +7,14 @@ import (
 	"github.com/knadh/koanf"
 	"github.com/knadh/koanf/parsers/yaml"
 	"github.com/knadh/koanf/providers/env"
+	"github.com/knadh/koanf/providers/file"
 	"github.com/knadh/koanf/providers/rawbytes"
 	"github.com/purplepudding/bricks/lib/config/settings"
 )
 
 const (
 	EnvPrefix = "FOUNDATION_"
+	FilePath  = "/etc/bricks/config.yaml"
 )
 
 func Load(service string, embeddedCfg []byte, cfg any) error {
@@ -23,7 +25,10 @@ func Load(service string, embeddedCfg []byte, cfg any) error {
 		return err
 	}
 
-	//TODO Load from YAML at path (general overrides)
+	// Load general overrides from a defined file path
+	if err := k.Load(file.Provider(FilePath), yaml.Parser()); err != nil {
+		slog.Info("failed to load additional configuration from file - continuing", "err", err, "filePath", FilePath)
+	}
 
 	//TODO consider how to externalise settings service url
 	if err := k.Load(settings.NewProvider("settings:8080", service), nil); err != nil {

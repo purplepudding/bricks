@@ -59,7 +59,7 @@ func unpackEntries(ctx context.Context, entries map[string]*structpb.Value, pref
 	return result, nil
 }
 
-func (s *ValkeySettingsStore) Get(ctx context.Context, collection string) (map[string]*structpb.Value, error) {
+func (s *ValkeySettingsStore) Get(ctx context.Context, collection string, id string) (map[string]*structpb.Value, error) {
 	res := s.valkeyCli.Do(ctx, s.valkeyCli.B().Hgetall().Key(collection).Build())
 
 	dbEntries, err := res.AsStrMap()
@@ -89,7 +89,7 @@ func (s *ValkeySettingsStore) Get(ctx context.Context, collection string) (map[s
 	return results, nil
 }
 
-func (s *ValkeySettingsStore) Set(ctx context.Context, collection string, entries map[string]*structpb.Value) error {
+func (s *ValkeySettingsStore) Set(ctx context.Context, collection string, id string, entries map[string]*structpb.Value) error {
 	// Build marshalled entries for the hash
 	marshalledEntries, err := unpackEntries(ctx, entries, "")
 	if err != nil {

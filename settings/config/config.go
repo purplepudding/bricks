@@ -3,6 +3,7 @@ package config
 import (
 	_ "embed"
 
+	"github.com/purplepudding/bricks/lib/clients/natscli"
 	"github.com/purplepudding/bricks/lib/clients/valkeycli"
 	"github.com/purplepudding/bricks/lib/config"
 )
@@ -14,4 +15,5 @@ type Config struct {
 	config.Microservice `koanf:",squash"`
 
 	Valkey valkeycli.Config
+	NATS   natscli.Config
 }

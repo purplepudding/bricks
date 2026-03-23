@@ -28,8 +28,12 @@ func (service *Service) Wire(cfg *config.Config) error {
 	if err != nil {
 		return err
 	}
-
+	//
 	settingsStore := persistence.NewValkeySettingsStore(valkeyCli)
+	// settingsStore, err := persistence.NewNATSSettingsStore(cfg.NATS)
+	// if err != nil {
+	// return err
+	// }
 
 	gsLogic := settings.NewGlobalSettingsLogic(settingsStore)
 	gsSvc := v1.NewGlobalSettingsService(gsLogic)

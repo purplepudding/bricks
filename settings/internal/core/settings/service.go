@@ -9,6 +9,10 @@ import (
 
 var _ v1.ServiceSettingsLogic = (*ServiceSettingsLogic)(nil)
 
+const (
+	ServiceCollection = "service"
+)
+
 type ServiceSettingsLogic struct {
 	globalSettings GlobalSettings
 	store          ServiceSettingsStore
@@ -25,7 +29,7 @@ func (logic *ServiceSettingsLogic) GetForService(ctx context.Context, service st
 		return nil, err
 	}
 
-	settings, err := logic.store.Get(ctx, service)
+	settings, err := logic.store.Get(ctx, ServiceCollection, service)
 	if err != nil {
 		//TODO sentinels and wrapping
 		return nil, err
@@ -40,7 +44,7 @@ func (logic *ServiceSettingsLogic) GetForService(ctx context.Context, service st
 }
 
 func (logic *ServiceSettingsLogic) SetForService(ctx context.Context, service string, settings map[string]*structpb.Value) error {
-	return logic.store.Set(ctx, service, settings)
+	return logic.store.Set(ctx, ServiceCollection, service, settings)
 }
 
 type GlobalSettings interface {
@@ -48,6 +52,6 @@ type GlobalSettings interface {
 }
 
 type ServiceSettingsStore interface {
-	Get(ctx context.Context, collection string) (map[string]*structpb.Value, error)
-	Set(ctx context.Context, collection string, settings map[string]*structpb.Value) error
+	Get(ctx context.Context, collection string, id string) (map[string]*structpb.Value, error)
+	Set(ctx context.Context, collection string, id string, entries map[string]*structpb.Value) error
 }
