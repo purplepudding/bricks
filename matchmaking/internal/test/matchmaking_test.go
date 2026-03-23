@@ -2,6 +2,7 @@ package test
 
 import (
 	"context"
+	"io"
 	"testing"
 	"time"
 
@@ -15,17 +16,28 @@ import (
 	"google.golang.org/grpc/status"
 )
 
-func TestIntegration_Do(t *testing.T) {
+func TestIntegration_RequestMatch(t *testing.T) {
 	tests := []struct {
 		name string
-		req  *matchmaking.Request
-		resp *matchmaking.Response
+		req  *matchmaking.RequestMatchRequest
+		resp []*matchmaking.RequestMatchResponse
 		code codes.Code
 	}{
 		{
-			name: "do the thing",
-			req: &matchmaking.Request{},
-			resp: &matchmaking.Response{},
+			name: "can successfully match",
+			req:  &matchmaking.RequestMatchRequest{},
+			resp: []*matchmaking.RequestMatchResponse{
+				{ // AwaitingMatch response
+					Update: &matchmaking.RequestMatchResponse_AwaitingMatch{
+						AwaitingMatch: &matchmaking.AwaitingMatch{},
+					},
+				},
+				{ // MatchFound response
+					Update: &matchmaking.RequestMatchResponse_MatchFound{
+						MatchFound: &matchmaking.MatchFound{},
+					},
+				},
+			},
 		},
 	}
 
@@ -37,21 +49,30 @@ func TestIntegration_Do(t *testing.T) {
 				_ = cc.Close()
 			}()
 
-			cli := matchmaking.NewAAAServiceClient(cc)
+			cli := matchmaking.NewMatchmakingServiceClient(cc)
 
 			ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 			defer cancel()
 
-			resp, err := cli.Do(ctx, tt.req)
+			resp, err := cli.RequestMatch(ctx, tt.req)
+
 			if tt.code != codes.OK {
 				assert.Nil(t, resp)
 				assert.Error(t, err)
-
 				s, _ := status.FromError(err)
 				assert.Equal(t, tt.code, s.Code())
 			} else {
 				assert.NoError(t, err)
-				test.ProtoEq(t, tt.resp, resp)
+
+				for _, expectedMsg := range tt.resp {
+					msg, err := resp.Recv()
+					if err != nil && err == io.EOF {
+						break
+					}
+					assert.NoError(t, err)
+
+					test.ProtoEq(t, expectedMsg, msg)
+				}
 			}
 		})
 	}
