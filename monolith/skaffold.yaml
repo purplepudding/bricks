@@ -42,3 +42,13 @@ portForward:
     namespace: bricks
     port: 80
     localPort: 8083
+  - resourceType: service
+    resourceName: item
+    namespace: bricks
+    port: 80
+    localPort: 8084
+  - resourceType: service
+    resourceName: matchmaking
+    namespace: bricks
+    port: 80
+    localPort: 8085

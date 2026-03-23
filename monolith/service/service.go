@@ -10,6 +10,7 @@ import (
 	authSvc "github.com/purplepudding/bricks/auth/service"
 	itemSvc "github.com/purplepudding/bricks/item/service"
 	"github.com/purplepudding/bricks/lib/microservice"
+	matchmakingSvc "github.com/purplepudding/bricks/matchmaking/service"
 	"github.com/purplepudding/bricks/monolith/config"
 	persistenceSvc "github.com/purplepudding/bricks/persistence/service"
 	settingsSvc "github.com/purplepudding/bricks/settings/service"
@@ -40,6 +41,13 @@ func (service *Service) Wire(cfg *config.Config) error {
 	if err := item.Wire(&cfg.Item); err != nil {
 		return fmt.Errorf("failed to wire item service: %w", err)
 	}
+	service.servers["item"] = item
+
+	matchmaking := new(matchmakingSvc.Service)
+	if err := matchmaking.Wire(&cfg.Matchmaking); err != nil {
+		return fmt.Errorf("failed to wire matchmaking service: %w", err)
+	}
+	service.servers["matchmaking"] = matchmaking
 
 	persistence := new(persistenceSvc.Service)
 	if err := persistence.Wire(&cfg.Persistence); err != nil {

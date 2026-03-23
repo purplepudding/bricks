@@ -6,6 +6,9 @@ auth:
 item:
   servingAddr: ":8084"
 
+matchmaking:
+  servingAddr: ":8085"
+
 persistence:
   servingAddr: ":8082"
   nats:

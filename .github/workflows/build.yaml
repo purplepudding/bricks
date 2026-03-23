@@ -20,9 +20,9 @@ jobs:
         with:
           token: ${{ github.token }}
           branch: main
-          patchAll: 'true'
-          noVersionBumpBehavior: 'patch'
-          fallbackTag: 'v0.1.0'
+          patchAll: "true"
+          noVersionBumpBehavior: "patch"
+          fallbackTag: "v0.1.0"
 
       - name: Create Release
         uses: ncipollo/release-action@v1.12.0
@@ -59,6 +59,7 @@ jobs:
         svc:
           - auth
           - item
+          - matchmaking
           - monolith
           - persistence
           - settings
@@ -66,7 +67,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Go  
+      - name: Setup Go
         uses: actions/setup-go@v5
         with:
           go-version: "1.24.x"
@@ -75,14 +76,13 @@ jobs:
         uses: ko-build/setup-ko@v0.6
 
       - name: Build container
-        run:
-          GOFLAGS="-ldflags=-X=github.com/purplepudding/bricks.Version=${{needs.version.outputs.version}}" ko build ./${{matrix.svc}}/cmd/${{matrix.svc}} --tags ${{needs.version.outputs.version}} --tags latest --base-import-paths --platform=linux/amd64,linux/arm64
+        run: GOFLAGS="-ldflags=-X=github.com/purplepudding/bricks.Version=${{needs.version.outputs.version}}" ko build ./${{matrix.svc}}/cmd/${{matrix.svc}} --tags ${{needs.version.outputs.version}} --tags latest --base-import-paths --platform=linux/amd64,linux/arm64
 
       - name: Update kustomization
         uses: fjogeleit/yaml-update-action@main
         with:
-          valueFile: '${{matrix.svc}}/deploy/k8s/dev/kustomization.yaml'
-          propertyPath: 'images[0].newTag'
+          valueFile: "${{matrix.svc}}/deploy/k8s/dev/kustomization.yaml"
+          propertyPath: "images[0].newTag"
           value: "${{steps.semver.outputs.next}}"
           commitChange: true
           message: "deploy: ${{matrix.svc}} ${{steps.semver.outputs.next}} [no ci]"

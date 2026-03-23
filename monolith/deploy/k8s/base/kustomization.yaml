@@ -3,5 +3,7 @@ resources:
   - deployment.yaml
   - service.yaml
   - auth-service.yaml
+  - item-service.yaml
+  - matchmaking-service.yaml
   - persistence-service.yaml
   - settings-service.yaml

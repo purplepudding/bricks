@@ -1,0 +1,21 @@
+syntax = "proto3";
+package bricks.v1.matchmaking;
+
+option go_package = "bricks/v1/matchmaking";
+
+message RequestMatchRequest {}
+
+message RequestMatchResponse {
+  oneof update {
+    AwaitingMatch awaiting_match = 1;
+    MatchFound match_found = 2;
+  }
+}
+
+message AwaitingMatch {}
+
+message MatchFound {}
+
+service MatchmakingService {
+  rpc RequestMatch(RequestMatchRequest) returns (stream RequestMatchResponse) {}
+}
