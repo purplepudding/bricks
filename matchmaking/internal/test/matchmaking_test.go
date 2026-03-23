@@ -11,69 +11,114 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/credentials/insecure"
-	"google.golang.org/grpc/status"
 )
 
-func TestIntegration_RequestMatch(t *testing.T) {
-	tests := []struct {
-		name string
-		req  *matchmaking.RequestMatchRequest
-		resp []*matchmaking.RequestMatchResponse
-		code codes.Code
-	}{
-		{
-			name: "can successfully match",
-			req:  &matchmaking.RequestMatchRequest{},
-			resp: []*matchmaking.RequestMatchResponse{
-				{ // AwaitingMatch response
-					Update: &matchmaking.RequestMatchResponse_AwaitingMatch{
-						AwaitingMatch: &matchmaking.AwaitingMatch{},
-					},
-				},
-				{ // MatchFound response
-					Update: &matchmaking.RequestMatchResponse_MatchFound{
-						MatchFound: &matchmaking.MatchFound{},
-					},
-				},
-			},
+func TestIntegration_RequestMatch_CanSuccessfullyMatch(t *testing.T) {
+	req := &matchmaking.RequestMatchRequest{}
+
+	cc, err := grpc.NewClient("localhost:8080", grpc.WithTransportCredentials(insecure.NewCredentials()))
+	require.NoError(t, err)
+	defer func() {
+		_ = cc.Close()
+	}()
+
+	cli := matchmaking.NewMatchmakingServiceClient(cc)
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	// Create first player to match
+	go func() {
+		_, err := cli.RequestMatch(ctx, req)
+		assert.NoError(t, err)
+	}()
+
+	// Create second player to match
+	resp, err := cli.RequestMatch(ctx, req)
+	assert.NoError(t, err)
+
+	msg, err := resp.Recv()
+	assert.NoError(t, err)
+
+	test.ProtoEq(t, &matchmaking.RequestMatchResponse{ // AwaitingMatch response
+		Update: &matchmaking.RequestMatchResponse_AwaitingMatch{
+			AwaitingMatch: &matchmaking.AwaitingMatch{},
 		},
-	}
+	}, msg)
 
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			cc, err := grpc.NewClient("localhost:8080", grpc.WithTransportCredentials(insecure.NewCredentials()))
-			require.NoError(t, err)
-			defer func() {
-				_ = cc.Close()
-			}()
+	msg, err = resp.Recv()
+	assert.NoError(t, err)
 
-			cli := matchmaking.NewMatchmakingServiceClient(cc)
+	test.ProtoEq(t, &matchmaking.RequestMatchResponse{ // MatchFound response
+		Update: &matchmaking.RequestMatchResponse_MatchFound{
+			MatchFound: &matchmaking.MatchFound{},
+		},
+	}, msg)
 
-			ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-			defer cancel()
-
-			resp, err := cli.RequestMatch(ctx, tt.req)
-
-			if tt.code != codes.OK {
-				assert.Nil(t, resp)
-				assert.Error(t, err)
-				s, _ := status.FromError(err)
-				assert.Equal(t, tt.code, s.Code())
-			} else {
-				assert.NoError(t, err)
-
-				for _, expectedMsg := range tt.resp {
-					msg, err := resp.Recv()
-					if err != nil && err == io.EOF {
-						break
-					}
-					assert.NoError(t, err)
-
-					test.ProtoEq(t, expectedMsg, msg)
-				}
-			}
-		})
-	}
+	msg, err = resp.Recv()
+	assert.ErrorIs(t, err, io.EOF)
 }
+
+//TODO this should be error handling tests
+// func TestIntegration_RequestMatch(t *testing.T) {
+// 	tests := []struct {
+// 		name string
+// 		req  *matchmaking.RequestMatchRequest
+// 		resp []*matchmaking.RequestMatchResponse
+// 		code codes.Code
+// 	}{
+// 		{
+// 			name: "can successfully match",
+// 			req:  &matchmaking.RequestMatchRequest{},
+// 			resp: []*matchmaking.RequestMatchResponse{
+// 				{ // AwaitingMatch response
+// 					Update: &matchmaking.RequestMatchResponse_AwaitingMatch{
+// 						AwaitingMatch: &matchmaking.AwaitingMatch{},
+// 					},
+// 				},
+// 				{ // MatchFound response
+// 					Update: &matchmaking.RequestMatchResponse_MatchFound{
+// 						MatchFound: &matchmaking.MatchFound{},
+// 					},
+// 				},
+// 			},
+// 		},
+// 	}
+
+// 	for _, tt := range tests {
+// 		t.Run(tt.name, func(t *testing.T) {
+// 			cc, err := grpc.NewClient("localhost:8080", grpc.WithTransportCredentials(insecure.NewCredentials()))
+// 			require.NoError(t, err)
+// 			defer func() {
+// 				_ = cc.Close()
+// 			}()
+
+// 			cli := matchmaking.NewMatchmakingServiceClient(cc)
+
+// 			ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+// 			defer cancel()
+
+// 			resp, err := cli.RequestMatch(ctx, tt.req)
+
+// 			if tt.code != codes.OK {
+// 				assert.Nil(t, resp)
+// 				assert.Error(t, err)
+// 				s, _ := status.FromError(err)
+// 				assert.Equal(t, tt.code, s.Code())
+// 			} else {
+// 				assert.NoError(t, err)
+
+// 				for _, expectedMsg := range tt.resp {
+// 					msg, err := resp.Recv()
+// 					if err != nil && err == io.EOF {
+// 						break
+// 					}
+// 					assert.NoError(t, err)
+
+// 					test.ProtoEq(t, expectedMsg, msg)
+// 				}
+// 			}
+// 		})
+// 	}
+// }

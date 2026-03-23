@@ -7,6 +7,7 @@ import (
 	matchmakingv1 "github.com/purplepudding/bricks/api/pkg/pb/bricks/v1/matchmaking"
 	"github.com/purplepudding/bricks/lib/microservice"
 	"github.com/purplepudding/bricks/matchmaking/config"
+	"github.com/purplepudding/bricks/matchmaking/internal/core"
 	"github.com/purplepudding/bricks/matchmaking/internal/grpcsvc"
 	"google.golang.org/grpc"
 )
@@ -21,8 +22,10 @@ type Service struct {
 func (service *Service) Wire(cfg *config.Config) error {
 	service.cfg = cfg
 
+	matchmaker := core.NewMatchmaker()
+
 	service.server = microservice.GRPCServer(func(g *grpc.Server) {
-		matchmakingv1.RegisterMatchmakingServiceServer(g, &grpcsvc.MatchmakingService{})
+		matchmakingv1.RegisterMatchmakingServiceServer(g, grpcsvc.NewMatchmakingService(matchmaker))
 	})
 
 	return nil
