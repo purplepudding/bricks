@@ -15,7 +15,9 @@ import (
 	time "time"
 
 	model "github.com/purplepudding/bricks/item/internal/core/model"
+	common "github.com/purplepudding/bricks/lib/common"
 	gomock "go.uber.org/mock/gomock"
+	structpb "google.golang.org/protobuf/types/known/structpb"
 )
 
 // MockItemPersistence is a mock of ItemPersistence interface.
@@ -58,45 +60,124 @@ func (mr *MockItemPersistenceMockRecorder) GetByID(ctx, id any) *gomock.Call {
 }
 
 // ListAll mocks base method.
-func (m *MockItemPersistence) ListAll(ctx context.Context) ([]*model.Item, error) {
+func (m *MockItemPersistence) ListAll(ctx context.Context, page common.Page) ([]*model.Item, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "ListAll", ctx)
+	ret := m.ctrl.Call(m, "ListAll", ctx, page)
 	ret0, _ := ret[0].([]*model.Item)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // ListAll indicates an expected call of ListAll.
-func (mr *MockItemPersistenceMockRecorder) ListAll(ctx any) *gomock.Call {
+func (mr *MockItemPersistenceMockRecorder) ListAll(ctx, page any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAll", reflect.TypeOf((*MockItemPersistence)(nil).ListAll), ctx)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAll", reflect.TypeOf((*MockItemPersistence)(nil).ListAll), ctx, page)
 }
 
-// ListAvailableOn mocks base method.
-func (m *MockItemPersistence) ListAvailableAt(ctx context.Context, date time.Time) ([]*model.Item, error) {
+// ListAvailableAt mocks base method.
+func (m *MockItemPersistence) ListAvailableAt(ctx context.Context, date time.Time, page common.Page) ([]*model.Item, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "ListAvailableAt", ctx, date)
+	ret := m.ctrl.Call(m, "ListAvailableAt", ctx, date, page)
 	ret0, _ := ret[0].([]*model.Item)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
-// ListAvailableOn indicates an expected call of ListAvailableOn.
-func (mr *MockItemPersistenceMockRecorder) ListAvailableOn(ctx, date any) *gomock.Call {
+// ListAvailableAt indicates an expected call of ListAvailableAt.
+func (mr *MockItemPersistenceMockRecorder) ListAvailableAt(ctx, date, page any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAvailableAt", reflect.TypeOf((*MockItemPersistence)(nil).ListAvailableAt), ctx, date)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAvailableAt", reflect.TypeOf((*MockItemPersistence)(nil).ListAvailableAt), ctx, date, page)
 }
 
 // Update mocks base method.
-func (m *MockItemPersistence) Update(ctx context.Context, item *model.Item) error {
+func (m *MockItemPersistence) Update(ctx context.Context, item *model.Item) (*model.Item, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Update", ctx, item)
-	ret0, _ := ret[0].(error)
-	return ret0
+	ret0, _ := ret[0].(*model.Item)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
 }
 
 // Update indicates an expected call of Update.
 func (mr *MockItemPersistenceMockRecorder) Update(ctx, item any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Update", reflect.TypeOf((*MockItemPersistence)(nil).Update), ctx, item)
+}
+
+// MockAssetBundleClient is a mock of AssetBundleClient interface.
+type MockAssetBundleClient struct {
+	ctrl     *gomock.Controller
+	recorder *MockAssetBundleClientMockRecorder
+	isgomock struct{}
+}
+
+// MockAssetBundleClientMockRecorder is the mock recorder for MockAssetBundleClient.
+type MockAssetBundleClientMockRecorder struct {
+	mock *MockAssetBundleClient
+}
+
+// NewMockAssetBundleClient creates a new mock instance.
+func NewMockAssetBundleClient(ctrl *gomock.Controller) *MockAssetBundleClient {
+	mock := &MockAssetBundleClient{ctrl: ctrl}
+	mock.recorder = &MockAssetBundleClientMockRecorder{mock}
+	return mock
+}
+
+// EXPECT returns an object that allows the caller to indicate expected use.
+func (m *MockAssetBundleClient) EXPECT() *MockAssetBundleClientMockRecorder {
+	return m.recorder
+}
+
+// AssetBundleForItem mocks base method.
+func (m *MockAssetBundleClient) AssetBundleForItem(ctx context.Context, itemID string) (map[string]*structpb.Value, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "AssetBundleForItem", ctx, itemID)
+	ret0, _ := ret[0].(map[string]*structpb.Value)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// AssetBundleForItem indicates an expected call of AssetBundleForItem.
+func (mr *MockAssetBundleClientMockRecorder) AssetBundleForItem(ctx, itemID any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "AssetBundleForItem", reflect.TypeOf((*MockAssetBundleClient)(nil).AssetBundleForItem), ctx, itemID)
+}
+
+// MockItemSettingsClient is a mock of ItemSettingsClient interface.
+type MockItemSettingsClient struct {
+	ctrl     *gomock.Controller
+	recorder *MockItemSettingsClientMockRecorder
+	isgomock struct{}
+}
+
+// MockItemSettingsClientMockRecorder is the mock recorder for MockItemSettingsClient.
+type MockItemSettingsClientMockRecorder struct {
+	mock *MockItemSettingsClient
+}
+
+// NewMockItemSettingsClient creates a new mock instance.
+func NewMockItemSettingsClient(ctrl *gomock.Controller) *MockItemSettingsClient {
+	mock := &MockItemSettingsClient{ctrl: ctrl}
+	mock.recorder = &MockItemSettingsClientMockRecorder{mock}
+	return mock
+}
+
+// EXPECT returns an object that allows the caller to indicate expected use.
+func (m *MockItemSettingsClient) EXPECT() *MockItemSettingsClientMockRecorder {
+	return m.recorder
+}
+
+// SettingsForItem mocks base method.
+func (m *MockItemSettingsClient) SettingsForItem(ctx context.Context, itemID string) (map[string]*structpb.Value, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "SettingsForItem", ctx, itemID)
+	ret0, _ := ret[0].(map[string]*structpb.Value)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// SettingsForItem indicates an expected call of SettingsForItem.
+func (mr *MockItemSettingsClientMockRecorder) SettingsForItem(ctx, itemID any) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SettingsForItem", reflect.TypeOf((*MockItemSettingsClient)(nil).SettingsForItem), ctx, itemID)
 }

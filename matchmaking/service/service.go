@@ -3,7 +3,9 @@ package service
 import (
 	"log/slog"
 	"net"
+	"net/netip"
 
+	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/realip"
 	matchmakingv1 "github.com/purplepudding/bricks/api/pkg/pb/bricks/v1/matchmaking"
 	"github.com/purplepudding/bricks/lib/microservice"
 	"github.com/purplepudding/bricks/matchmaking/config"
@@ -24,9 +26,15 @@ func (service *Service) Wire(cfg *config.Config) error {
 
 	matchmaker := core.NewMatchmaker()
 
+	trustedPeers := []netip.Prefix{netip.MustParsePrefix("127.0.0.1/32")}
+	headers := []string{realip.XForwardedFor, realip.XRealIp}
+
 	service.server = microservice.GRPCServer(func(g *grpc.Server) {
 		matchmakingv1.RegisterMatchmakingServiceServer(g, grpcsvc.NewMatchmakingService(matchmaker))
-	})
+	},
+		grpc.ChainUnaryInterceptor(realip.UnaryServerInterceptor(trustedPeers, headers)),
+		grpc.ChainStreamInterceptor(realip.StreamServerInterceptor(trustedPeers, headers)),
+	)
 
 	return nil
 }

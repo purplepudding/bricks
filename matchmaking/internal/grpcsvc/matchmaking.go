@@ -5,12 +5,13 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/realip"
 	matchmakingv1 "github.com/purplepudding/bricks/api/pkg/pb/bricks/v1/matchmaking"
 )
 
 // Matchmaker interface for matchmaking logic
 type Matchmaker interface {
-	RequestMatch(ctx context.Context, playerID string) (<-chan []string, error)
+	RequestMatch(ctx context.Context, playerID, playerAddr string) (<-chan []string, error)
 }
 
 // MatchmakingService holds matchmaking service logic
@@ -30,9 +31,18 @@ func NewMatchmakingService(m Matchmaker) *MatchmakingService {
 func (s *MatchmakingService) RequestMatch(req *matchmakingv1.RequestMatchRequest, svr matchmakingv1.MatchmakingService_RequestMatchServer) error {
 	//TODO Extract player ID from the request
 	playerID := fmt.Sprintf("player-%s", time.Now())
+	playerIP, found := realip.FromContext(svr.Context())
+	if !found {
+		return fmt.Errorf("player IP not found, %q", playerIP)
+	}
+
+	if req.Port == 0 {
+		req.Port = 7777
+	}
+	playerAddr := fmt.Sprintf("%s:%d", playerIP, req.Port)
 
 	// Call the matchmaker interface
-	resChan, err := s.matchmaker.RequestMatch(svr.Context(), playerID)
+	resChan, err := s.matchmaker.RequestMatch(svr.Context(), playerID, playerAddr)
 	if err != nil {
 		return err
 	}
@@ -53,6 +63,7 @@ func (s *MatchmakingService) RequestMatch(req *matchmakingv1.RequestMatchRequest
 	case result := <-resChan:
 
 		// Print the debug info
+		fmt.Printf("Matchmaking from player addr %s\n", playerAddr)
 		fmt.Printf("Matchmaker RequestMatch Results: %s\n", result)
 		fmt.Printf("Matchmaker RequestMatch Error: %v\n", err)
 

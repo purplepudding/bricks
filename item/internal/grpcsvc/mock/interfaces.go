@@ -59,33 +59,33 @@ func (mr *MockCatalogLogicMockRecorder) Get(ctx, id any) *gomock.Call {
 }
 
 // List mocks base method.
-func (m *MockCatalogLogic) List(ctx context.Context, pb *common.Page) ([]*model.Item, error) {
+func (m *MockCatalogLogic) List(ctx context.Context, page *common.Page) ([]*model.Item, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "List", ctx, pb)
+	ret := m.ctrl.Call(m, "List", ctx, page)
 	ret0, _ := ret[0].([]*model.Item)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // List indicates an expected call of List.
-func (mr *MockCatalogLogicMockRecorder) List(ctx, pb any) *gomock.Call {
+func (mr *MockCatalogLogicMockRecorder) List(ctx, page any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "List", reflect.TypeOf((*MockCatalogLogic)(nil).List), ctx, pb)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "List", reflect.TypeOf((*MockCatalogLogic)(nil).List), ctx, page)
 }
 
 // ListAvailable mocks base method.
-func (m *MockCatalogLogic) ListAvailable(ctx context.Context, timestampOverride *time.Time, pb *common.Page) ([]*model.Item, error) {
+func (m *MockCatalogLogic) ListAvailable(ctx context.Context, timestampOverride *time.Time, page *common.Page) ([]*model.Item, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "ListAvailable", ctx, timestampOverride)
+	ret := m.ctrl.Call(m, "ListAvailable", ctx, timestampOverride, page)
 	ret0, _ := ret[0].([]*model.Item)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }
 
 // ListAvailable indicates an expected call of ListAvailable.
-func (mr *MockCatalogLogicMockRecorder) ListAvailable(ctx, timestampOverride any) *gomock.Call {
+func (mr *MockCatalogLogicMockRecorder) ListAvailable(ctx, timestampOverride, page any) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAvailable", reflect.TypeOf((*MockCatalogLogic)(nil).ListAvailable), ctx, timestampOverride)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "ListAvailable", reflect.TypeOf((*MockCatalogLogic)(nil).ListAvailable), ctx, timestampOverride, page)
 }
 
 // UpdateItem mocks base method.

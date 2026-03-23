@@ -3,7 +3,9 @@ package bricks.v1.matchmaking;
 
 option go_package = "bricks/v1/matchmaking";
 
-message RequestMatchRequest {}
+message RequestMatchRequest {
+  int32 port = 1;
+}
 
 message RequestMatchResponse {
   oneof update {
