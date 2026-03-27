@@ -47,6 +47,7 @@ func (s *MatchmakingService) RequestMatch(req *matchmakingv1.RequestMatchRequest
 		return err
 	}
 
+	// Send an awaiting match response
 	err = svr.Send(&matchmakingv1.RequestMatchResponse{
 		Update: &matchmakingv1.RequestMatchResponse_AwaitingMatch{},
 	})
