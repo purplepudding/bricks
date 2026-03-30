@@ -1,0 +1,352 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "bricks/v1/item/catalog.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "CatalogService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/items/all": {
+      "get": {
+        "summary": "List obtains all items in the catalog, whether they're available or not.",
+        "operationId": "CatalogService_List",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/itemListResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "page.lastId",
+            "description": "last_id indicates the id of the last seen record, to indicate where the viewer currently is on the list. If unset,\nshould default to returning the first record according to the sort",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page.count",
+            "description": "count indicates how many records to return",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "CatalogService"
+        ]
+      }
+    },
+    "/v1/items/available": {
+      "get": {
+        "summary": "ListAvailable obtains all items in the store that are available as of the date of the request (or the overridden\nvalue if the user is permitted to override)",
+        "operationId": "CatalogService_ListAvailable",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/itemListAvailableResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "requestTimestamp",
+            "description": "request_timestamp should only be permitted to be sent by certain classes of user (for example, a QA team or\nplaytesters). It is intended to allow testing of unreleased items, as it will be used to override the current\ntimestamp that would otherwise be used.",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "name": "page.lastId",
+            "description": "last_id indicates the id of the last seen record, to indicate where the viewer currently is on the list. If unset,\nshould default to returning the first record according to the sort",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "page.count",
+            "description": "count indicates how many records to return",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "CatalogService"
+        ]
+      }
+    },
+    "/v1/items/by-id/{id}": {
+      "get": {
+        "summary": "Get obtains the currently version of a stored Item, including asset bundles and parameters",
+        "operationId": "CatalogService_Get",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/itemGetResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "CatalogService"
+        ]
+      }
+    },
+    "/v1/items/update/{item.id}": {
+      "put": {
+        "summary": "UpdateItem attempts to amend the item contents",
+        "operationId": "CatalogService_UpdateItem",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/itemUpdateItemResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "item.id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "item",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "labels": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                "flags": {
+                  "type": "string",
+                  "format": "uint64"
+                },
+                "availabilitySchedule": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "$ref": "#/definitions/commonTimeRange"
+                  }
+                },
+                "version": {
+                  "type": "string",
+                  "format": "uint64"
+                }
+              }
+            }
+          }
+        ],
+        "tags": [
+          "CatalogService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "commonPagination": {
+      "type": "object",
+      "properties": {
+        "lastId": {
+          "type": "string",
+          "title": "last_id indicates the id of the last seen record, to indicate where the viewer currently is on the list. If unset,\nshould default to returning the first record according to the sort"
+        },
+        "count": {
+          "type": "integer",
+          "format": "int64",
+          "title": "count indicates how many records to return"
+        }
+      },
+      "description": "Pagination defines how to select a portion of a large data set for a given request."
+    },
+    "commonTimeRange": {
+      "type": "object",
+      "properties": {
+        "from": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "to": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "description": "TimeRange describes a time period between two dates. Both parameters are optional - by convention, not providing a\nparameter for either value should indicate that end of the range is the start/end of time as appropriate. Uses of\nthis message should indicate the type of interval this describes - for example, [closed, open) would indicate that\n`from` was in the range, and `to` would be out of the range."
+    },
+    "itemGetResponse": {
+      "type": "object",
+      "properties": {
+        "item": {
+          "$ref": "#/definitions/itemItem"
+        },
+        "assetBundle": {
+          "type": "object",
+          "additionalProperties": {}
+        },
+        "parameters": {
+          "type": "object",
+          "additionalProperties": {}
+        }
+      }
+    },
+    "itemItem": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "labels": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "flags": {
+          "type": "string",
+          "format": "uint64"
+        },
+        "availabilitySchedule": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/commonTimeRange"
+          }
+        },
+        "version": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
+    "itemListAvailableResponse": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/itemItem"
+          }
+        }
+      }
+    },
+    "itemListResponse": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/itemItem"
+          }
+        }
+      }
+    },
+    "itemUpdateItemResponse": {
+      "type": "object",
+      "properties": {
+        "version": {
+          "type": "string",
+          "format": "uint64"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "protobufNullValue": {
+      "type": "string",
+      "enum": [
+        "NULL_VALUE"
+      ],
+      "default": "NULL_VALUE",
+      "description": "`NullValue` is a singleton enumeration to represent the null value for the\n`Value` type union.\n\nThe JSON representation for `NullValue` is JSON `null`.\n\n - NULL_VALUE: Null value."
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}

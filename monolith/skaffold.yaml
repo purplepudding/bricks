@@ -17,7 +17,10 @@ build:
             - ../lib
             - ../go.mod
             - ../go.sum
+            - ../api
             - ../auth
+            - ../gateway
+            - ../item
             - ../persistence
             - ../settings
 
@@ -27,6 +30,11 @@ manifests:
       - deploy/k8s/local
 
 portForward:
+  - resourceType: service
+    resourceName: gateway
+    namespace: bricks
+    port: 80
+    localPort: 8080
   - resourceType: service
     resourceName: auth
     namespace: bricks

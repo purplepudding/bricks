@@ -8,6 +8,8 @@ import (
 
 	"github.com/nats-io/nats-server/v2/server"
 	authSvc "github.com/purplepudding/bricks/auth/service"
+	gatewayCfg "github.com/purplepudding/bricks/gateway/config"
+	gatewaySvc "github.com/purplepudding/bricks/gateway/service"
 	itemSvc "github.com/purplepudding/bricks/item/service"
 	"github.com/purplepudding/bricks/lib/microservice"
 	matchmakingSvc "github.com/purplepudding/bricks/matchmaking/service"
@@ -60,6 +62,19 @@ func (service *Service) Wire(cfg *config.Config) error {
 		return fmt.Errorf("failed to wire settings service: %w", err)
 	}
 	service.servers["settings"] = settings
+
+	gateway := new(gatewaySvc.Service)
+	if err := gateway.Wire(&gatewayCfg.Config{
+		Auth:         cfg.Auth,
+		Item:         cfg.Item,
+		Matchmaking:  cfg.Matchmaking,
+		Persistence:  cfg.Persistence,
+		Settings:     cfg.Settings,
+		Microservice: cfg.Gateway,
+	}); err != nil {
+		return fmt.Errorf("failed to wire gateway service: %w", err)
+	}
+	service.servers["gateway"] = gateway
 
 	return nil
 }

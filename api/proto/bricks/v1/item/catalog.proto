@@ -1,11 +1,13 @@
 syntax = "proto3";
 package bricks.v1.item;
-option go_package = "bricks/v1/item";
 
 import "bricks/v1/common/pagination.proto";
 import "bricks/v1/common/timerange.proto";
+import "google/api/annotations.proto";
 import "google/protobuf/struct.proto";
 import "google/protobuf/timestamp.proto";
+
+option go_package = "bricks/v1/item";
 
 message Item {
   string id = 1;
@@ -57,15 +59,26 @@ message UpdateItemResponse {
 
 service CatalogService {
   // Get obtains the currently version of a stored Item, including asset bundles and parameters
-  rpc Get(GetRequest) returns (GetResponse) {}
+  rpc Get(GetRequest) returns (GetResponse) {
+    option (google.api.http) = {get: "/v1/items/by-id/{id}"};
+  }
 
   // List obtains all items in the catalog, whether they're available or not.
-  rpc List(ListRequest) returns (ListResponse) {}
+  rpc List(ListRequest) returns (ListResponse) {
+    option (google.api.http) = {get: "/v1/items/all"};
+  }
 
   // ListAvailable obtains all items in the store that are available as of the date of the request (or the overridden
   // value if the user is permitted to override)
-  rpc ListAvailable(ListAvailableRequest) returns (ListAvailableResponse) {}
+  rpc ListAvailable(ListAvailableRequest) returns (ListAvailableResponse) {
+    option (google.api.http) = {get: "/v1/items/available"};
+  }
 
   // UpdateItem attempts to amend the item contents
-  rpc UpdateItem(UpdateItemRequest) returns (UpdateItemResponse) {}
+  rpc UpdateItem(UpdateItemRequest) returns (UpdateItemResponse) {
+    option (google.api.http) = {
+      put: "/v1/items/update/{item.id}"
+      body: "item"
+    };
+  }
 }

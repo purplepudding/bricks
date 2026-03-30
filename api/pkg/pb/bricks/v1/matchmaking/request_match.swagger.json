@@ -1,0 +1,117 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "bricks/v1/matchmaking/request_match.proto",
+    "version": "version not set"
+  },
+  "tags": [
+    {
+      "name": "MatchmakingService"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/matchmaking/request-match": {
+      "post": {
+        "operationId": "MatchmakingService_RequestMatch",
+        "responses": {
+          "200": {
+            "description": "A successful response.(streaming responses)",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "result": {
+                  "$ref": "#/definitions/matchmakingRequestMatchResponse"
+                },
+                "error": {
+                  "$ref": "#/definitions/rpcStatus"
+                }
+              },
+              "title": "Stream result of matchmakingRequestMatchResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/matchmakingRequestMatchRequest"
+            }
+          }
+        ],
+        "tags": [
+          "MatchmakingService"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "matchmakingAwaitingMatch": {
+      "type": "object"
+    },
+    "matchmakingMatchFound": {
+      "type": "object"
+    },
+    "matchmakingRequestMatchRequest": {
+      "type": "object",
+      "properties": {
+        "port": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "matchmakingRequestMatchResponse": {
+      "type": "object",
+      "properties": {
+        "awaitingMatch": {
+          "$ref": "#/definitions/matchmakingAwaitingMatch"
+        },
+        "matchFound": {
+          "$ref": "#/definitions/matchmakingMatchFound"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}

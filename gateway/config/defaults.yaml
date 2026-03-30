@@ -1,0 +1,17 @@
+name: gateway
+servingAddr: ":8080"
+
+auth:
+  servingAddr: "auth"
+
+item:
+  servingAddr: "item"
+
+matchmaking:
+  servingAddr: "matchmaking"
+
+persistence:
+  servingAddr: "persistence"
+
+settings:
+  servingAddr: "settings"

@@ -1,6 +1,8 @@
 syntax = "proto3";
 package bricks.v1.matchmaking;
 
+import "google/api/annotations.proto";
+
 option go_package = "bricks/v1/matchmaking";
 
 message RequestMatchRequest {
@@ -19,5 +21,10 @@ message AwaitingMatch {}
 message MatchFound {}
 
 service MatchmakingService {
-  rpc RequestMatch(RequestMatchRequest) returns (stream RequestMatchResponse) {}
+  rpc RequestMatch(RequestMatchRequest) returns (stream RequestMatchResponse) {
+    option (google.api.http) = {
+      post: "/v1/matchmaking/request-match"
+      body: "*"
+    };
+  }
 }
