@@ -6,6 +6,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   ingressClassName: nginx
   rules:
@@ -19,3 +20,7 @@ spec:
                 name: gateway
                 port:
                   name: http
+  tls:
+    - hosts:
+        - bricks.purplepudding.ddns.net
+      secretName: bricks-gateway-cert-tls
