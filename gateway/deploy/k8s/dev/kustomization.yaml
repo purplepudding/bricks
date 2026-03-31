@@ -1,5 +1,6 @@
 resources:
   - ../base
+  - resources/ingress.yaml
 images:
   - name: ghcr.io/purplepudding/bricks/gateway
-    newTag: ''
+    newTag: ""
