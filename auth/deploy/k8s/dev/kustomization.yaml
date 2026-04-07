@@ -4,4 +4,4 @@ patches:
   - path: patches/deployment.yaml
 images:
   - name: ghcr.io/purplepudding/bricks/auth
-    newTag: ''
+    newTag: v0.22.7
