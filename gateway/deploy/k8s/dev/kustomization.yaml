@@ -3,4 +3,4 @@ resources:
   - resources/ingress.yaml
 images:
   - name: ghcr.io/purplepudding/bricks/gateway
-    newTag: v0.23.2
+    newTag: v0.23.3
