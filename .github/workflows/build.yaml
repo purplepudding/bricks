@@ -66,7 +66,7 @@ jobs:
           - settings
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - name: Setup Go
         uses: actions/setup-go@v6
@@ -80,14 +80,12 @@ jobs:
         run: GOFLAGS="-ldflags=-X=github.com/purplepudding/bricks.Version=${{needs.version.outputs.version}}" ko build ./${{matrix.svc}}/cmd/${{matrix.svc}} --tags ${{needs.version.outputs.version}} --tags latest --base-import-paths --platform=linux/amd64,linux/arm64
 
       - name: Update kustomization
-        uses: rmeneely/update-yaml@v1
+        uses: fjogeleit/yaml-update-action@v0.16.1
         with:
-          inFile: "${{matrix.svc}}/deploy/k8s/dev/kustomization.yaml"
-          varlist: images[0].newTag=${{steps.semver.outputs.next}}
-
-      - name: Commit changes
-        uses: EndBug/add-and-commit@v9
-        with:
-          message: "deploy: ${{matrix.svc}} ${{steps.semver.outputs.next}} [no ci]"
+          valueFile: "${{matrix.svc}}/deploy/k8s/dev/kustomization.yaml"
+          propertyPath: "images[0].newTag"
+          value: "${{ needs.version.outputs.version }}"
+          commitChange: true
+          message: "deploy: ${{matrix.svc}} ${{ needs.version.outputs.version }} [no ci]"
           branch: main
-          master_branch: main
+          masterBranchName: main
