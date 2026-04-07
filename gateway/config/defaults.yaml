@@ -2,16 +2,16 @@ name: gateway
 servingAddr: ":8080"
 
 auth:
-  servingAddr: "auth"
+  servingAddr: "auth:80"
 
 item:
-  servingAddr: "item"
+  servingAddr: "item:80"
 
 matchmaking:
-  servingAddr: "matchmaking"
+  servingAddr: "matchmaking:80"
 
 persistence:
-  servingAddr: "persistence"
+  servingAddr: "persistence:80"
 
 settings:
-  servingAddr: "settings"
+  servingAddr: "settings:80"
