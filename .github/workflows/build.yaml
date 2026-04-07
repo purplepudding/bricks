@@ -55,6 +55,7 @@ jobs:
     needs: version
 
     strategy:
+      max-parallel: 1
       matrix:
         svc:
           - auth
