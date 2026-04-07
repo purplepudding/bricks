@@ -6,4 +6,4 @@ patches:
   - path: patches/deployment.yaml
 images:
   - name: ghcr.io/purplepudding/bricks/persistence
-    newTag: v0.22.7
+    newTag: v0.22.8
