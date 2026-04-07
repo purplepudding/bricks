@@ -59,7 +59,7 @@ func (m *MemoryMatchClient) RequestMatch(ctx context.Context, player core.Player
 	}
 
 	// Else no match, create a new channel for this player and queue it
-	println("no match found for playerID: %s, queuing", player)
+	println("no match found for playerID: %s, queuing", player.ID)
 	m.players[player.ID] = &PlayerConnection{
 		Player:    player,
 		MessageCh: newChan,
