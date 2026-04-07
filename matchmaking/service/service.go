@@ -11,6 +11,7 @@ import (
 	"github.com/purplepudding/bricks/matchmaking/config"
 	"github.com/purplepudding/bricks/matchmaking/internal/core"
 	"github.com/purplepudding/bricks/matchmaking/internal/grpcsvc"
+	"github.com/purplepudding/bricks/matchmaking/internal/memorymatch"
 	"google.golang.org/grpc"
 )
 
@@ -24,7 +25,8 @@ type Service struct {
 func (service *Service) Wire(cfg *config.Config) error {
 	service.cfg = cfg
 
-	matchmaker := core.NewMatchmaker()
+	memoryMatchmakingClient := memorymatch.NewMemoryMatchClient()
+	matchmaker := core.NewMatchmaker(memoryMatchmakingClient)
 
 	trustedPeers := []netip.Prefix{netip.MustParsePrefix("127.0.0.1/32"), netip.MustParsePrefix("10.0.0.0/8")}
 	headers := []string{realip.XForwardedFor, realip.XRealIp}
