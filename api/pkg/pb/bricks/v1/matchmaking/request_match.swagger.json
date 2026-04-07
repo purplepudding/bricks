@@ -63,7 +63,30 @@
       "type": "object"
     },
     "matchmakingMatchFound": {
-      "type": "object"
+      "type": "object",
+      "properties": {
+        "matchId": {
+          "type": "string"
+        },
+        "players": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/matchmakingPlayer"
+          }
+        }
+      }
+    },
+    "matchmakingPlayer": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "addr": {
+          "type": "string"
+        }
+      }
     },
     "matchmakingRequestMatchRequest": {
       "type": "object",

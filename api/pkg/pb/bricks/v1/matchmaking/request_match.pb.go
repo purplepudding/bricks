@@ -186,6 +186,8 @@ func (*AwaitingMatch) Descriptor() ([]byte, []int) {
 
 type MatchFound struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
+	MatchId       string                 `protobuf:"bytes,1,opt,name=match_id,json=matchId,proto3" json:"match_id,omitempty"`
+	Players       []*Player              `protobuf:"bytes,2,rep,name=players,proto3" json:"players,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -220,6 +222,72 @@ func (*MatchFound) Descriptor() ([]byte, []int) {
 	return file_bricks_v1_matchmaking_request_match_proto_rawDescGZIP(), []int{3}
 }
 
+func (x *MatchFound) GetMatchId() string {
+	if x != nil {
+		return x.MatchId
+	}
+	return ""
+}
+
+func (x *MatchFound) GetPlayers() []*Player {
+	if x != nil {
+		return x.Players
+	}
+	return nil
+}
+
+type Player struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Addr          string                 `protobuf:"bytes,2,opt,name=addr,proto3" json:"addr,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Player) Reset() {
+	*x = Player{}
+	mi := &file_bricks_v1_matchmaking_request_match_proto_msgTypes[4]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Player) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Player) ProtoMessage() {}
+
+func (x *Player) ProtoReflect() protoreflect.Message {
+	mi := &file_bricks_v1_matchmaking_request_match_proto_msgTypes[4]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Player.ProtoReflect.Descriptor instead.
+func (*Player) Descriptor() ([]byte, []int) {
+	return file_bricks_v1_matchmaking_request_match_proto_rawDescGZIP(), []int{4}
+}
+
+func (x *Player) GetId() string {
+	if x != nil {
+		return x.Id
+	}
+	return ""
+}
+
+func (x *Player) GetAddr() string {
+	if x != nil {
+		return x.Addr
+	}
+	return ""
+}
+
 var File_bricks_v1_matchmaking_request_match_proto protoreflect.FileDescriptor
 
 const file_bricks_v1_matchmaking_request_match_proto_rawDesc = "" +
@@ -232,9 +300,14 @@ const file_bricks_v1_matchmaking_request_match_proto_rawDesc = "" +
 	"\vmatch_found\x18\x02 \x01(\v2!.bricks.v1.matchmaking.MatchFoundH\x00R\n" +
 	"matchFoundB\b\n" +
 	"\x06update\"\x0f\n" +
-	"\rAwaitingMatch\"\f\n" +
+	"\rAwaitingMatch\"`\n" +
 	"\n" +
-	"MatchFound2\xaa\x01\n" +
+	"MatchFound\x12\x19\n" +
+	"\bmatch_id\x18\x01 \x01(\tR\amatchId\x127\n" +
+	"\aplayers\x18\x02 \x03(\v2\x1d.bricks.v1.matchmaking.PlayerR\aplayers\",\n" +
+	"\x06Player\x12\x0e\n" +
+	"\x02id\x18\x01 \x01(\tR\x02id\x12\x12\n" +
+	"\x04addr\x18\x02 \x01(\tR\x04addr2\xaa\x01\n" +
 	"\x12MatchmakingService\x12\x93\x01\n" +
 	"\fRequestMatch\x12*.bricks.v1.matchmaking.RequestMatchRequest\x1a+.bricks.v1.matchmaking.RequestMatchResponse\"(\x82\xd3\xe4\x93\x02\":\x01*\"\x1d/v1/matchmaking/request-match0\x01B\xe6\x01\n" +
 	"\x19com.bricks.v1.matchmakingB\x11RequestMatchProtoP\x01Z@github.com/purplepudding/bricks/api/pkg/pb/bricks/v1/matchmaking\xa2\x02\x03BVM\xaa\x02\x15Bricks.V1.Matchmaking\xca\x02\x15Bricks\\V1\\Matchmaking\xe2\x02!Bricks\\V1\\Matchmaking\\GPBMetadata\xea\x02\x17Bricks::V1::Matchmakingb\x06proto3"
@@ -251,23 +324,25 @@ func file_bricks_v1_matchmaking_request_match_proto_rawDescGZIP() []byte {
 	return file_bricks_v1_matchmaking_request_match_proto_rawDescData
 }
 
-var file_bricks_v1_matchmaking_request_match_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
+var file_bricks_v1_matchmaking_request_match_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
 var file_bricks_v1_matchmaking_request_match_proto_goTypes = []any{
 	(*RequestMatchRequest)(nil),  // 0: bricks.v1.matchmaking.RequestMatchRequest
 	(*RequestMatchResponse)(nil), // 1: bricks.v1.matchmaking.RequestMatchResponse
 	(*AwaitingMatch)(nil),        // 2: bricks.v1.matchmaking.AwaitingMatch
 	(*MatchFound)(nil),           // 3: bricks.v1.matchmaking.MatchFound
+	(*Player)(nil),               // 4: bricks.v1.matchmaking.Player
 }
 var file_bricks_v1_matchmaking_request_match_proto_depIdxs = []int32{
 	2, // 0: bricks.v1.matchmaking.RequestMatchResponse.awaiting_match:type_name -> bricks.v1.matchmaking.AwaitingMatch
 	3, // 1: bricks.v1.matchmaking.RequestMatchResponse.match_found:type_name -> bricks.v1.matchmaking.MatchFound
-	0, // 2: bricks.v1.matchmaking.MatchmakingService.RequestMatch:input_type -> bricks.v1.matchmaking.RequestMatchRequest
-	1, // 3: bricks.v1.matchmaking.MatchmakingService.RequestMatch:output_type -> bricks.v1.matchmaking.RequestMatchResponse
-	3, // [3:4] is the sub-list for method output_type
-	2, // [2:3] is the sub-list for method input_type
-	2, // [2:2] is the sub-list for extension type_name
-	2, // [2:2] is the sub-list for extension extendee
-	0, // [0:2] is the sub-list for field type_name
+	4, // 2: bricks.v1.matchmaking.MatchFound.players:type_name -> bricks.v1.matchmaking.Player
+	0, // 3: bricks.v1.matchmaking.MatchmakingService.RequestMatch:input_type -> bricks.v1.matchmaking.RequestMatchRequest
+	1, // 4: bricks.v1.matchmaking.MatchmakingService.RequestMatch:output_type -> bricks.v1.matchmaking.RequestMatchResponse
+	4, // [4:5] is the sub-list for method output_type
+	3, // [3:4] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_bricks_v1_matchmaking_request_match_proto_init() }
@@ -285,7 +360,7 @@ func file_bricks_v1_matchmaking_request_match_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_bricks_v1_matchmaking_request_match_proto_rawDesc), len(file_bricks_v1_matchmaking_request_match_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   4,
+			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

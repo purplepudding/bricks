@@ -5,13 +5,15 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/google/uuid"
 	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/realip"
 	matchmakingv1 "github.com/purplepudding/bricks/api/pkg/pb/bricks/v1/matchmaking"
+	"github.com/purplepudding/bricks/matchmaking/internal/core"
 )
 
 // Matchmaker interface for matchmaking logic
 type Matchmaker interface {
-	RequestMatch(ctx context.Context, playerID, playerAddr string) (<-chan []string, error)
+	RequestMatch(ctx context.Context, playerID, playerAddr string) (<-chan []core.Player, error)
 }
 
 // MatchmakingService holds matchmaking service logic
@@ -62,14 +64,21 @@ func (s *MatchmakingService) RequestMatch(req *matchmakingv1.RequestMatchRequest
 	case <-ctx.Done():
 		return ctx.Err()
 	case result := <-resChan:
-
-		// Print the debug info
-		fmt.Printf("Matchmaking from player addr %s\n", playerAddr)
-		fmt.Printf("Matchmaker RequestMatch Results: %s\n", result)
-		fmt.Printf("Matchmaker RequestMatch Error: %v\n", err)
+		var players []*matchmakingv1.Player
+		for _, p := range result {
+			players = append(players, &matchmakingv1.Player{
+				Id:   p.ID,
+				Addr: p.Addr,
+			})
+		}
 
 		return svr.Send(&matchmakingv1.RequestMatchResponse{
-			Update: &matchmakingv1.RequestMatchResponse_MatchFound{},
+			Update: &matchmakingv1.RequestMatchResponse_MatchFound{
+				MatchFound: &matchmakingv1.MatchFound{
+					MatchId: uuid.New().String(),
+					Players: players,
+				},
+			},
 		})
 	}
 }

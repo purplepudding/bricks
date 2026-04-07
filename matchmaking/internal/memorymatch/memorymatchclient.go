@@ -4,6 +4,8 @@ package memorymatch
 import (
 	"context"
 	"sync"
+
+	"github.com/purplepudding/bricks/matchmaking/internal/core"
 )
 
 // MemoryMatchClient implements thread-safe channel-based player matching.
@@ -14,8 +16,8 @@ type MemoryMatchClient struct {
 
 // PlayerConnection encapsulates player data and channel for communication.
 type PlayerConnection struct {
-	PlayerID  string
-	MessageCh chan []string
+	Player    core.Player
+	MessageCh chan []core.Player
 }
 
 // NewMemoryMatchClient returns an initialized MemoryMatchClient.
@@ -29,26 +31,26 @@ func NewMemoryMatchClient() *MemoryMatchClient {
 //   - If queue is empty, creates a new connection and returns nil (player has a channel)
 //   - If queue has players, finds a matching player and returns MatchFound with a channel
 //   - If matching fails, player is requeued
-func (m *MemoryMatchClient) RequestMatch(ctx context.Context, playerID string, gameID string) (<-chan []string, error) {
+func (m *MemoryMatchClient) RequestMatch(ctx context.Context, player core.Player, gameID string) (<-chan []core.Player, error) {
 	m.mu.Lock()
 	defer m.mu.Unlock()
 
-	println("locked for playerID: %s, gameID: %s", playerID, gameID)
+	println("locked for playerID: %s, gameID: %s", player.ID, gameID)
 
 	// If player already has a connection, return it
-	if pc, exists := m.players[playerID]; exists {
+	if pc, exists := m.players[player.ID]; exists {
 		return pc.MessageCh, nil
 	}
 
+	newChan := make(chan []core.Player, 1)
+
 	// Else find the first available player to match with
 	for key, pc := range m.players {
-		if pc.PlayerID != playerID {
-			println("found matching player: %s for playerID: %s", pc.PlayerID, playerID)
+		if pc.Player.ID != player.ID {
+			println("found matching player: %s for playerID: %s", pc.Player.ID, player.ID)
 
-			newChan := make(chan []string, 1)
-
-			newChan <- []string{pc.PlayerID}
-			pc.MessageCh <- []string{playerID}
+			newChan <- []core.Player{pc.Player}
+			pc.MessageCh <- []core.Player{player}
 
 			delete(m.players, key)
 
@@ -57,10 +59,9 @@ func (m *MemoryMatchClient) RequestMatch(ctx context.Context, playerID string, g
 	}
 
 	// Else no match, create a new channel for this player and queue it
-	println("no match found for playerID: %s, queuing", playerID)
-	newChan := make(chan []string, 1)
-	m.players[playerID] = &PlayerConnection{
-		PlayerID:  playerID,
+	println("no match found for playerID: %s, queuing", player)
+	m.players[player.ID] = &PlayerConnection{
+		Player:    player,
 		MessageCh: newChan,
 	}
 	return newChan, nil

@@ -18,7 +18,15 @@ message RequestMatchResponse {
 
 message AwaitingMatch {}
 
-message MatchFound {}
+message MatchFound {
+  string match_id = 1;
+  repeated Player players = 2;
+}
+
+message Player {
+  string id = 1;
+  string addr = 2;
+}
 
 service MatchmakingService {
   rpc RequestMatch(RequestMatchRequest) returns (stream RequestMatchResponse) {
