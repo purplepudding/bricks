@@ -80,12 +80,14 @@ jobs:
         run: GOFLAGS="-ldflags=-X=github.com/purplepudding/bricks.Version=${{needs.version.outputs.version}}" ko build ./${{matrix.svc}}/cmd/${{matrix.svc}} --tags ${{needs.version.outputs.version}} --tags latest --base-import-paths --platform=linux/amd64,linux/arm64
 
       - name: Update kustomization
-        uses: fjogeleit/yaml-update-action@v0.16.1
+        uses: rmeneely/update-yaml@v1
         with:
-          valueFile: "${{matrix.svc}}/deploy/k8s/dev/kustomization.yaml"
-          propertyPath: "images[0].newTag"
-          value: "${{steps.semver.outputs.next}}"
-          commitChange: true
+          inFile: "${{matrix.svc}}/deploy/k8s/dev/kustomization.yaml"
+          varlist: images[0].newTag=${{steps.semver.outputs.next}}
+
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v9
+        with:
           message: "deploy: ${{matrix.svc}} ${{steps.semver.outputs.next}} [no ci]"
           branch: main
-          masterBranchName: main
+          master_branch: main
