@@ -2,4 +2,4 @@ resources:
   - ../base
 images:
   - name: ghcr.io/purplepudding/bricks/matchmaking
-    newTag: ''
+    newTag: v0.22.6
