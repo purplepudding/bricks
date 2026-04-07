@@ -2,4 +2,4 @@ resources:
   - ../base
 images:
   - name: ghcr.io/purplepudding/bricks/item
-    newTag: ''
+    newTag: v0.22.7
