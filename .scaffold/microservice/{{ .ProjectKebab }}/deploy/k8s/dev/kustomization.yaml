@@ -1,5 +1,13 @@
 resources:
   - ../base
+
+
+configMapGenerator:
+   - name: {{ .ProjectKebab }}-config
+     namespace: bricks
+     envs:
+       - config.env
+
 images:
   - name: ghcr.io/purplepudding/bricks/{{.ProjectKebab}}
     newTag: ''

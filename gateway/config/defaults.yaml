@@ -1,5 +1,6 @@
 name: gateway
 servingAddr: ":8080"
+observabilityEnabled: true
 
 auth:
   servingAddr: "auth:80"

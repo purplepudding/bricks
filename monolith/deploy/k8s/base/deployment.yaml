@@ -23,6 +23,9 @@ spec:
           ports:
             - containerPort: 80
               protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: monolith-config
         - name: valkey
           image: valkey/valkey:latest
           imagePullPolicy: IfNotPresent

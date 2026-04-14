@@ -37,7 +37,7 @@ func (service *Service) Wire(cfg *config.Config) error {
 	cl := catalog.New(ip, abc, isc)
 	cs := grpcsvc.NewCatalogService(cl)
 
-	service.server = microservice.GRPCServer(func(g *grpc.Server) {
+	service.server = microservice.GRPCServer(cfg, func(g *grpc.Server) {
 		itemv1.RegisterCatalogServiceServer(g, cs)
 	})
 

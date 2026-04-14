@@ -37,7 +37,7 @@ func (service *Service) Wire(cfg *config.Config) error {
 	ssLogic := settings.NewServiceSettingsLogic(gsLogic, settingsStore)
 	ssSvc := v1.NewServiceSettingsService(ssLogic)
 
-	service.server = microservice.GRPCServer(func(g *grpc.Server) {
+	service.server = microservice.GRPCServer(cfg, func(g *grpc.Server) {
 		settingsv1.RegisterGlobalSettingsServiceServer(g, gsSvc)
 		settingsv1.RegisterServiceSettingsServiceServer(g, ssSvc)
 	})

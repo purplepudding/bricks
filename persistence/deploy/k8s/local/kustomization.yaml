@@ -3,3 +3,9 @@ resources:
   - resources/namespace.yaml
   - resources/valkey/deployment.yaml
   - resources/valkey/service.yaml
+
+configMapGenerator:
+  - name: persistence-config
+    namespace: bricks
+    envs:
+      - config.env

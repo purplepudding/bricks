@@ -21,7 +21,7 @@ type Service struct {
 func (service *Service) Wire(cfg *config.Config) error {
 	service.cfg = cfg
 
-	service.server = microservice.GRPCServer(func(g *grpc.Server) {
+	service.server = microservice.GRPCServer(cfg, func(g *grpc.Server) {
 		{{.ProjectKebab}}v1.RegisterAAAServiceServer(g, &grpcsvc.AAAService{})
 	})
 

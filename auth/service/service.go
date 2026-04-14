@@ -19,7 +19,7 @@ type Service struct {
 }
 
 func (service *Service) Wire(cfg *config.Config) error {
-	service.server = microservice.GRPCServer(func(g *grpc.Server) {
+	service.server = microservice.GRPCServer(cfg, func(g *grpc.Server) {
 		authv1.RegisterAuthServiceServer(g, &grpcsvc.AuthService{})
 	})
 	service.cfg = cfg

@@ -1,3 +1,9 @@
 resources:
   - ../base
   - namespace.yaml
+
+configMapGenerator:
+  - name: item-config
+    namespace: bricks
+    envs:
+      - config.env

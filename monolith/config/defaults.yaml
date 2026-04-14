@@ -1,4 +1,5 @@
 name: monolith
+observabilityEnabled: true
 
 gateway:
   servingAddr: ":8080"

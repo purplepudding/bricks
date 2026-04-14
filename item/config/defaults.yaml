@@ -1,5 +1,6 @@
 name: item
 servingAddr: ":8080"
+observabilityEnabled: true
 
 clients:
   nats:

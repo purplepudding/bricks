@@ -23,4 +23,7 @@ spec:
           ports:
             - containerPort: 80
               protocol: TCP
+          envFrom:
+            - configMapRef:
+                name: item-config
       restartPolicy: Always

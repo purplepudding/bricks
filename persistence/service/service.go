@@ -31,7 +31,7 @@ func (service *Service) Wire(cfg *config.Config) error {
 	sl := storage.NewLogic(st)
 	ss := grpcsvc.NewStorageService(sl)
 
-	service.server = microservice.GRPCServer(func(g *grpc.Server) {
+	service.server = microservice.GRPCServer(cfg, func(g *grpc.Server) {
 		persistencev1.RegisterStorageServiceServer(g, ss)
 	})
 

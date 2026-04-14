@@ -2,8 +2,16 @@ resources:
   - ../base
   - resources/valkey/deployment.yaml
   - resources/valkey/service.yaml
+
 patches:
   - path: patches/deployment.yaml
+
+configMapGenerator:
+  - name: settings-config
+    namespace: bricks
+    envs:
+      - config.env
+
 images:
   - name: ghcr.io/purplepudding/bricks/settings
     newTag: v0.23.3

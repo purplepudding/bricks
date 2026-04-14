@@ -1,5 +1,12 @@
 resources:
   - ../base
+
+configMapGenerator:
+  - name: matchmaking-config
+    namespace: bricks
+    envs:
+      - config.env
+
 images:
   - name: ghcr.io/purplepudding/bricks/matchmaking
     newTag: v0.23.3

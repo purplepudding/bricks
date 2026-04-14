@@ -31,7 +31,7 @@ func (service *Service) Wire(cfg *config.Config) error {
 	trustedPeers := []netip.Prefix{netip.MustParsePrefix("127.0.0.1/32"), netip.MustParsePrefix("10.0.0.0/8")}
 	headers := []string{realip.XForwardedFor, realip.XRealIp}
 
-	service.server = microservice.GRPCServer(func(g *grpc.Server) {
+	service.server = microservice.GRPCServer(cfg, func(g *grpc.Server) {
 		matchmakingv1.RegisterMatchmakingServiceServer(g, grpcsvc.NewMatchmakingService(matchmaker))
 	},
 		grpc.ChainUnaryInterceptor(realip.UnaryServerInterceptor(trustedPeers, headers)),

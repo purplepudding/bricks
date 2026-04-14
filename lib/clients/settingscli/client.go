@@ -2,12 +2,11 @@ package settingscli
 
 import (
 	settingsv1 "github.com/purplepudding/bricks/api/pkg/pb/bricks/v1/settings"
-	"google.golang.org/grpc"
-	"google.golang.org/grpc/credentials/insecure"
+	"github.com/purplepudding/bricks/lib/clients/grpccli"
 )
 
 func New(cfg Config) (*Client, error) {
-	cc, err := grpc.NewClient(cfg.Addr, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	cc, err := grpccli.New(cfg.Addr)
 	if err != nil {
 		return nil, err
 	}

@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	EnvPrefix = "FOUNDATION_"
+	EnvPrefix = "BRICKS_"
 )
 
 func Load(service string, embeddedCfg []byte, cfg any) error {

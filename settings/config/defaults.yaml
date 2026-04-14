@@ -1,5 +1,6 @@
 name: settings
 servingAddr: ":8080"
+observabilityEnabled: true
 
 valkey:
   addr: settings-valkey:6379

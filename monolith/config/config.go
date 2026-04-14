@@ -15,10 +15,11 @@ import (
 var DefaultCfg []byte
 
 type Config struct {
-	Auth        authConfig.Config
-	Item        itemConfig.Config
-	Matchmaking matchmakingConfig.Config
-	Persistence persistenceConfig.Config
-	Settings    settingsConfig.Config
-	Gateway     config.Microservice
+	config.Microservice `koanf:",squash"`
+	Auth                authConfig.Config
+	Item                itemConfig.Config
+	Matchmaking         matchmakingConfig.Config
+	Persistence         persistenceConfig.Config
+	Settings            settingsConfig.Config
+	Gateway             config.Microservice
 }

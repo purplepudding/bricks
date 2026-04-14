@@ -1,3 +1,9 @@
 resources:
   - ../base
   - namespace.yaml
+
+configMapGenerator:
+  - name: {{ .ProjectKebab }}-config
+    namespace: bricks
+    envs:
+      - config.env
