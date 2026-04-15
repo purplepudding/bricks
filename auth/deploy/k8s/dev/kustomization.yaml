@@ -1,15 +1,12 @@
 resources:
   - ../base
-
 patches:
   - path: patches/deployment.yaml
-
 configMapGenerator:
   - name: auth-config
     namespace: bricks
     envs:
       - config.env
-
 images:
   - name: ghcr.io/purplepudding/bricks/auth
-    newTag: v0.23.3
+    newTag: v0.24.0
