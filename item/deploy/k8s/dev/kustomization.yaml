@@ -1,12 +1,10 @@
 resources:
   - ../base
-
 configMapGenerator:
   - name: item-config
     namespace: bricks
     envs:
       - config.env
-
 images:
   - name: ghcr.io/purplepudding/bricks/item
-    newTag: v0.23.3
+    newTag: v0.24.0
