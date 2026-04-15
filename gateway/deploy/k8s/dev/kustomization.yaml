@@ -1,13 +1,11 @@
 resources:
   - ../base
   - resources/ingress.yaml
-
 configMapGenerator:
   - name: gateway-config
     namespace: bricks
     envs:
       - config.env
-
 images:
   - name: ghcr.io/purplepudding/bricks/gateway
-    newTag: v0.23.3
+    newTag: v0.24.0
