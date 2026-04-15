@@ -13,14 +13,22 @@ import (
 func EnableExport(serviceName, version string) (*sdktrace.TracerProvider, *sdkmetric.MeterProvider, error) {
 	ctx := context.Background()
 
-	r, err := resource.Merge(
-		resource.Default(),
-		resource.NewWithAttributes(
-			semconv.SchemaURL,
+	d, err := resource.New(context.Background(),
+		resource.WithSchemaURL(semconv.SchemaURL),
+		resource.WithAttributes(
 			semconv.ServiceName(serviceName),
 			semconv.ServiceVersion(version),
 		),
+		resource.WithProcess(),
+		resource.WithOS(),
+		resource.WithContainer(),
+		resource.WithHost(),
 	)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	r, err := resource.Merge(resource.Default(), d)
 	if err != nil {
 		return nil, nil, err
 	}
