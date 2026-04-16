@@ -9,4 +9,4 @@ configMapGenerator:
       - config.env
 images:
   - name: ghcr.io/purplepudding/bricks/auth
-    newTag: v0.24.1
+    newTag: v0.24.2
