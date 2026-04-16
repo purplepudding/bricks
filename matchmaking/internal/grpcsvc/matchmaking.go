@@ -9,6 +9,10 @@ import (
 	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/realip"
 	matchmakingv1 "github.com/purplepudding/bricks/api/pkg/pb/bricks/v1/matchmaking"
 	"github.com/purplepudding/bricks/matchmaking/internal/core"
+	"go.opentelemetry.io/otel/attribute"
+	"go.opentelemetry.io/otel/codes"
+	"go.opentelemetry.io/otel/trace"
+	"google.golang.org/grpc/metadata"
 )
 
 // Matchmaker interface for matchmaking logic
@@ -31,22 +35,46 @@ func NewMatchmakingService(m Matchmaker) *MatchmakingService {
 
 // RequestMatch implements the MatchmakingService server method, delegates to the internal matchmaker
 func (s *MatchmakingService) RequestMatch(req *matchmakingv1.RequestMatchRequest, svr matchmakingv1.MatchmakingService_RequestMatchServer) error {
+	ctx := svr.Context()
+
+	//TODO pull this up into a general interceptor func
+	span := trace.SpanFromContext(ctx)
+	md, ok := metadata.FromIncomingContext(ctx)
+	if !ok {
+		return s.reportError(span, fmt.Errorf("metadata not found"))
+	}
+	for k, v := range md {
+		span.SetAttributes(
+			attribute.StringSlice("metadata."+k, v),
+		)
+	}
+
 	//TODO Extract player ID from the request
 	playerID := fmt.Sprintf("player-%s", time.Now())
-	playerIP, found := realip.FromContext(svr.Context())
+	playerIP, found := realip.FromContext(ctx)
 	if !found {
-		return fmt.Errorf("player IP not found, %q", playerIP)
+		return s.reportError(span, fmt.Errorf("player IP not found, %q", playerIP))
 	}
+
+	span.SetAttributes(
+		attribute.String("player.id", playerID),
+		attribute.String("player.ip", playerIP.StringExpanded()),
+	)
 
 	if req.Port == 0 {
 		req.Port = 7777
 	}
 	playerAddr := fmt.Sprintf("%s:%d", playerIP, req.Port)
 
+	span.SetAttributes(
+		attribute.Int("player.port", int(req.Port)),
+		attribute.String("player.addr", playerAddr),
+	)
+
 	// Call the matchmaker interface
-	resChan, err := s.matchmaker.RequestMatch(svr.Context(), playerID, playerAddr)
+	resChan, err := s.matchmaker.RequestMatch(ctx, playerID, playerAddr)
 	if err != nil {
-		return err
+		return s.reportError(span, err)
 	}
 
 	// Send an awaiting match response
@@ -54,15 +82,15 @@ func (s *MatchmakingService) RequestMatch(req *matchmakingv1.RequestMatchRequest
 		Update: &matchmakingv1.RequestMatchResponse_AwaitingMatch{},
 	})
 	if err != nil {
-		return err
+		return s.reportError(span, err)
 	}
 
-	ctx, cancel := context.WithTimeout(svr.Context(), 25*time.Second)
+	ctx, cancel := context.WithTimeout(ctx, 25*time.Second)
 	defer cancel()
 
 	select {
 	case <-ctx.Done():
-		return ctx.Err()
+		return s.reportError(span, ctx.Err())
 	case result := <-resChan:
 		var players []*matchmakingv1.Player
 		for _, p := range result {
@@ -81,4 +109,11 @@ func (s *MatchmakingService) RequestMatch(req *matchmakingv1.RequestMatchRequest
 			},
 		})
 	}
+}
+
+// TODO move this to a common lib and reuse
+func (s *MatchmakingService) reportError(span trace.Span, err error) error {
+	span.RecordError(err)
+	span.SetStatus(codes.Error, err.Error())
+	return err
 }
